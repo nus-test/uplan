@@ -10,5 +10,5 @@ We implemented an visualization tool based on the unified representation of quer
 
 ## Screenshots
 
-![tool1](/assets/tool1.png)
-![tool2](/assets/tool2.png)
+![tool1](assets/tool1.png)
+![tool2](assets/tool2.png)

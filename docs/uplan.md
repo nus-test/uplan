@@ -5,7 +5,7 @@ nav_order: 4
 ---
 
 # UPlan
-We provide the source code of the prototype UPlan for maintaining the unified query plan representations here: [https://github.com/unifiedqueryplan/unifiedqueryplan.github.io](https://github.com/unifiedqueryplan/unifiedqueryplan.github.io)
+We provide the source code of the prototype UPlan for maintaining the unified query plan representations here: [https://nus-test.github.io/uplan/](https://nus-test.github.io/uplan/)
 
 ## Quick Start
 To transfer an original TiDB query plan into the unified representation, run:
