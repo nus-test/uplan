@@ -1,0 +1,21 @@
+Executor->Argument
+row: 0
+	Combinator->Sort
+	row: 0
+		Executor->Eager
+		row: 0
+			Executor->Cache
+			row: 0
+				Join->Relation
+				row: 0
+					Join->Relation
+					row: 0
+						Join->Relation
+						row: 0
+							Join->Relation
+							row: 0
+								Join->Relation
+								row: 3
+
+cost model: IDP
+version: 5.6

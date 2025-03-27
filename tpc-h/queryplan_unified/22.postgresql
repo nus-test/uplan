@@ -1,0 +1,21 @@
+Folder->Aggregate
+row: 17
+	Folder->Aggregate
+	row: 1
+		Producer->Full Table Scan
+		row: 143
+		name object: customer
+	Combinator->Sort
+	row: 17
+		Join->Hash Join
+		row: 17
+			Producer->Full Table Scan
+			row: 52
+			name object: customer
+			Executor->Hash Row
+			row: 45000
+				Producer->Full Table Scan
+				row: 45000
+				name object: orders
+
+time planning: 0.643

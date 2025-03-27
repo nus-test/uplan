@@ -1,0 +1,31 @@
+Combinator->Sort
+	Folder->Group
+		Join->Nested Loop
+		row: 753
+			Join->Nested Loop
+			row: 753
+				Join->Nested Loop
+				row: 753
+					Join->Nested Loop
+					row: 15075
+						Join->Nested Loop
+						row: 6030
+							Producer->Full Table Scan
+							row: 4470
+							name object: ORDERS
+							Producer->Index Scan
+							row: 6030
+							name object: l1
+						Producer->Full Table Scan
+						row: 15075
+						name object: NATION
+					Producer->Index Scan
+					row: 753
+					name object: SUPPLIER
+				Producer->Index Scan
+				row: 753
+				name object: l2
+			Producer->Index Scan
+			row: 753
+			name object: l3
+

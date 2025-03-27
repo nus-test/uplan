@@ -1,0 +1,17 @@
+Executor->Argument
+row: 2.6622718693104446
+	Combinator->Sort
+	row: 2.6622718693104446
+		Executor->Eager
+		row: 2.6622718693104446
+			Join->Nested Loop
+			row: 44.99999999999999
+				Projector->Project
+				row: 14.999999999999998
+					Producer->Range Scan
+					row: 300
+				Join->Relation
+				row: 44.99999999999999
+
+cost model: IDP
+version: 5.6

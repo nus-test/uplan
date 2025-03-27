@@ -1,0 +1,261 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "`customer.id`",
+      "`SUM(item.L_QUANTITY)`",
+      "`order.O_TOTALPRICE`",
+      "`order.O_ORDERDATE`",
+      "`customer.C_NAME`",
+      "`order.id`"
+    ],
+    "arguments": {
+      "Order": "`order.O_TOTALPRICE` DESC, `order.O_ORDERDATE` ASC",
+      "planner-impl": "IDP",
+      "Details": "`customer.C_NAME`, `customer.id`, `order.id`, `order.O_ORDERDATE`, `order.O_TOTALPRICE`, `SUM(item.L_QUANTITY)`",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| Operator                        | Id | Details                                                                                              | Estimated Rows | Ordered by                                         |\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +ProduceResults                 |  0 | `customer.C_NAME`, `customer.id`, `order.id`, `order.O_ORDERDATE`, `order.O_TOTALPRICE`,             |              0 |                                                    |\n| |                               |    | `SUM(item.L_QUANTITY)`                                                                               |                |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+                                                    |\n| +Top                            |  1 | `order.O_TOTALPRICE` DESC, `order.O_ORDERDATE` ASC LIMIT 100                                         |              0 | `order.O_TOTALPRICE` DESC, `order.O_ORDERDATE` ASC |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +EagerAggregation               |  2 | cache[customer.id] AS `customer.id`, cache[order.O_TOTALPRICE] AS `order.O_TOTALPRICE`, cache[custom |              0 |                                                    |\n| |                               |    | er.C_NAME] AS `customer.C_NAME`, cache[order.id] AS `order.id`, cache[order.O_ORDERDATE] AS `order.O |                |                                                    |\n| |                               |    | _ORDERDATE`, SUM(item.L_QUANTITY) AS `SUM(item.L_QUANTITY)`                                          |                |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +CacheProperties                |  3 | cache[customer.C_NAME], cache[customer.id], cache[order.O_ORDERDATE], cache[order.O_TOTALPRICE]      |              0 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +Filter                         |  4 | item:LINEITEM                                                                                        |              0 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +Expand(All)                    |  5 | (order)<-[anon_0:IS_PART_OF]-(item)                                                                  |              0 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +Filter                         |  6 | order:ORDER AND customer:CUSTOMER AND cache[order.id] = l_orderkey                                   |              0 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +Apply                          |  7 |                                                                                                      |            382 |                                                    |\n| |\\                              +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| | +DirectedRelationshipTypeScan |  8 | (order)-[anon_1:MADE_BY]->(customer)                                                                 |            382 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +Filter                         |  9 | sum_lquantity > $autoint_0                                                                           |            127 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +EagerAggregation               | 10 | cache[lineitem.L_ORDERKEY] AS l_orderkey, SUM(cache[lineitem.L_QUANTITY]) AS sum_lquantity           |            425 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +CacheProperties                | 11 | cache[lineitem.L_QUANTITY], cache[lineitem.L_ORDERKEY]                                               |         180566 |                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n| +NodeByLabelScan                | 12 | lineitem:LINEITEM                                                                                    |         180566 |                                                    |\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+----------------------------------------------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 0,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Top@neo4j",
+        "identifiers": [
+          "`customer.id`",
+          "`SUM(item.L_QUANTITY)`",
+          "`order.O_TOTALPRICE`",
+          "`order.O_ORDERDATE`",
+          "`customer.C_NAME`",
+          "`order.id`"
+        ],
+        "arguments": {
+          "Order": "`order.O_TOTALPRICE` DESC, `order.O_ORDERDATE` ASC",
+          "Details": "`order.O_TOTALPRICE` DESC, `order.O_ORDERDATE` ASC LIMIT 100",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 0
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "`customer.id`",
+              "`SUM(item.L_QUANTITY)`",
+              "`order.O_TOTALPRICE`",
+              "`order.O_ORDERDATE`",
+              "`customer.C_NAME`",
+              "`order.id`"
+            ],
+            "arguments": {
+              "Details": "cache[customer.id] AS `customer.id`, cache[order.O_TOTALPRICE] AS `order.O_TOTALPRICE`, cache[customer.C_NAME] AS `customer.C_NAME`, cache[order.id] AS `order.id`, cache[order.O_ORDERDATE] AS `order.O_ORDERDATE`, SUM(item.L_QUANTITY) AS `SUM(item.L_QUANTITY)`",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 0
+            },
+            "children": [
+              {
+                "operatorType": "CacheProperties@neo4j",
+                "identifiers": [
+                  "sum_lquantity",
+                  "order",
+                  "customer",
+                  "l_orderkey",
+                  "item",
+                  "anon_0",
+                  "anon_1"
+                ],
+                "arguments": {
+                  "Details": "cache[customer.C_NAME], cache[customer.id], cache[order.O_ORDERDATE], cache[order.O_TOTALPRICE]",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0
+                },
+                "children": [
+                  {
+                    "operatorType": "Filter@neo4j",
+                    "identifiers": [
+                      "sum_lquantity",
+                      "order",
+                      "customer",
+                      "l_orderkey",
+                      "item",
+                      "anon_0",
+                      "anon_1"
+                    ],
+                    "arguments": {
+                      "Details": "item:LINEITEM",
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      },
+                      "EstimatedRows": 0
+                    },
+                    "children": [
+                      {
+                        "operatorType": "Expand(All)@neo4j",
+                        "identifiers": [
+                          "sum_lquantity",
+                          "order",
+                          "customer",
+                          "l_orderkey",
+                          "item",
+                          "anon_0",
+                          "anon_1"
+                        ],
+                        "arguments": {
+                          "Details": "(order)<-[anon_0:IS_PART_OF]-(item)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 0
+                        },
+                        "children": [
+                          {
+                            "operatorType": "Filter@neo4j",
+                            "identifiers": [
+                              "sum_lquantity",
+                              "anon_1",
+                              "order",
+                              "customer",
+                              "l_orderkey"
+                            ],
+                            "arguments": {
+                              "Details": "order:ORDER AND customer:CUSTOMER AND cache[order.id] = l_orderkey",
+                              "Id": {
+                                "low": 6,
+                                "high": 0
+                              },
+                              "EstimatedRows": 0
+                            },
+                            "children": [
+                              {
+                                "operatorType": "Apply@neo4j",
+                                "identifiers": [
+                                  "sum_lquantity",
+                                  "anon_1",
+                                  "order",
+                                  "customer",
+                                  "l_orderkey"
+                                ],
+                                "arguments": {
+                                  "EstimatedRows": 382.4375243095269,
+                                  "Id": {
+                                    "low": 7,
+                                    "high": 0
+                                  }
+                                },
+                                "children": [
+                                  {
+                                    "operatorType": "Filter@neo4j",
+                                    "identifiers": [
+                                      "l_orderkey",
+                                      "sum_lquantity"
+                                    ],
+                                    "arguments": {
+                                      "Details": "sum_lquantity > $autoint_0",
+                                      "Id": {
+                                        "low": 9,
+                                        "high": 0
+                                      },
+                                      "EstimatedRows": 127.4791747698423
+                                    },
+                                    "children": [
+                                      {
+                                        "operatorType": "EagerAggregation@neo4j",
+                                        "identifiers": [
+                                          "l_orderkey",
+                                          "sum_lquantity"
+                                        ],
+                                        "arguments": {
+                                          "Details": "cache[lineitem.L_ORDERKEY] AS l_orderkey, SUM(cache[lineitem.L_QUANTITY]) AS sum_lquantity",
+                                          "Id": {
+                                            "low": 10,
+                                            "high": 0
+                                          },
+                                          "EstimatedRows": 424.930582566141
+                                        },
+                                        "children": [
+                                          {
+                                            "operatorType": "CacheProperties@neo4j",
+                                            "identifiers": [
+                                              "lineitem"
+                                            ],
+                                            "arguments": {
+                                              "Details": "cache[lineitem.L_QUANTITY], cache[lineitem.L_ORDERKEY]",
+                                              "Id": {
+                                                "low": 11,
+                                                "high": 0
+                                              },
+                                              "EstimatedRows": 180566
+                                            },
+                                            "children": [
+                                              {
+                                                "operatorType": "NodeByLabelScan@neo4j",
+                                                "identifiers": [
+                                                  "lineitem"
+                                                ],
+                                                "arguments": {
+                                                  "Details": "lineitem:LINEITEM",
+                                                  "Id": {
+                                                    "low": 12,
+                                                    "high": 0
+                                                  },
+                                                  "EstimatedRows": 180566
+                                                },
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                                    "identifiers": [
+                                      "sum_lquantity",
+                                      "anon_1",
+                                      "order",
+                                      "customer",
+                                      "l_orderkey"
+                                    ],
+                                    "arguments": {
+                                      "Details": "(order)-[anon_1:MADE_BY]->(customer)",
+                                      "Id": {
+                                        "low": 8,
+                                        "high": 0
+                                      },
+                                      "EstimatedRows": 382.4375243095269
+                                    },
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

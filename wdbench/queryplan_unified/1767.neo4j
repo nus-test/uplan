@@ -1,0 +1,46 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "none(anon_14 IN anon_13 WHERE anon_14 IN anon_9) AND none(anon_15 IN anon_13 WHERE anon_15 IN anon_3) AND none(anon_16 IN anon_13 WHERE anon_16 IN anon_11) AND none(anon_17 IN anon_13 WHERE anon_17 IN anon_7) AND none(anon_18 IN anon_13 WHERE anon_18 IN anon_5)",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "none(anon_19 IN anon_11 WHERE anon_19 IN anon_9) AND none(anon_20 IN anon_11 WHERE anon_20 IN anon_7) AND none(anon_21 IN anon_11 WHERE anon_21 IN anon_5) AND none(anon_22 IN anon_11 WHERE anon_22 IN anon_3)",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "none(anon_23 IN anon_9 WHERE anon_23 IN anon_7) AND none(anon_24 IN anon_9 WHERE anon_24 IN anon_5) AND none(anon_25 IN anon_9 WHERE anon_25 IN anon_3)",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "none(anon_26 IN anon_7 WHERE anon_26 IN anon_5) AND none(anon_27 IN anon_7 WHERE anon_27 IN anon_3)",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "Filter->filter": "none(anon_28 IN anon_5 WHERE anon_28 IN anon_3)",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "Filter->filter": "anon_0.id = $autostring_0 AND anon_0:Entity"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "Plan": {
+        "Operation": "Producer->Full Table Scan",
+        "Cardinality->row": 1184,
+        "Cost->time": 1,
+        "Status->worker": 1186,
+        "Status->call": 1184,
+        "Configuration->information": 0,
+        "Status->suspended": 1,
+        "Status->recovered": 1,
+        "Status->end": 1,
+        "Status->scan direction": "forward",
+        "Cardinality->row read": 1184
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "not anon_0 = anon_1",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_3 = anon_5 AND anon_6.id = $autostring_1 AND anon_6:Entity",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "anon_4.id = $autostring_0 AND anon_4:Entity",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "not anon_2 IN anon_8 AND anon_9.id = $autostring_2 AND anon_9:Entity",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

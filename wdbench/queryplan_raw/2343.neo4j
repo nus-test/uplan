@@ -1,0 +1,32 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+-------------------------+----------------+\n| Operator                      | Id | Details                 | Estimated Rows |\n+-------------------------------+----+-------------------------+----------------+\n| +ProduceResults               |  0 | x1, x2                  |              3 |\n| |                             +----+-------------------------+----------------+\n| +DirectedRelationshipTypeScan |  1 | (x2)-[anon_0:P50]->(x1) |              3 |\n+-------------------------------+----+-------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1, x2",
+  "planner-version": "5.6",
+  "EstimatedRows": 3.0,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "anon_0",
+    "x2",
+    "x1"
+  ],
+  "children": [
+    {
+      "operatorType": "DirectedRelationshipTypeScan@neo4j",
+      "Details": "(x2)-[anon_0:P50]->(x1)",
+      "EstimatedRows": 3.0,
+      "Id": 1,
+      "identifiers": [
+        "anon_0",
+        "x2",
+        "x1"
+      ],
+      "children": []
+    }
+  ]
+}

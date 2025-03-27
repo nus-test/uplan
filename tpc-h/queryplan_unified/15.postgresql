@@ -1,0 +1,33 @@
+Join->Nested Loop
+row: 2
+	Folder->Aggregate
+	row: 1
+		Folder->Aggregate
+		row: 300
+			Executor->Collect Order
+			row: 600
+				Combinator->Sort
+				row: 300
+					Folder->Aggregate
+					row: 300
+						Producer->Full Table Scan
+						row: 2865
+						name object: lineitem
+	Folder->Aggregate
+	row: 2
+		Executor->Collect Order
+		row: 600
+			Combinator->Sort
+			row: 300
+				Folder->Aggregate
+				row: 300
+					Producer->Full Table Scan
+					row: 2865
+					name object: lineitem
+	Executor->Cache
+	row: 1
+		Producer->Index Scan
+		row: 1
+		name object: supplier
+
+time planning: 0.548

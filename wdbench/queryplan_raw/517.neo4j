@@ -1,0 +1,175 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+---------------------------------+----+-------------------------------------------------------------------------+----------------+\n| Operator                        | Id | Details                                                                 | Estimated Rows |\n+---------------------------------+----+-------------------------------------------------------------------------+----------------+\n| +ProduceResults                 |  0 | x1, x2, x3                                                              |              0 |\n| |                               +----+-------------------------------------------------------------------------+----------------+\n| +Filter                         |  1 | none(anon_11 IN anon_3 WHERE anon_11 IN anon_7) AND not anon_1 = anon_5 |              0 |\n| |                               +----+-------------------------------------------------------------------------+----------------+\n| +CartesianProduct               |  2 |                                                                         |              0 |\n| |\\                              +----+-------------------------------------------------------------------------+----------------+\n| | +Filter                       |  3 | anon_4:Entity AND anon_4.id = $autostring_0                             |              0 |\n| | |                             +----+-------------------------------------------------------------------------+----------------+\n| | +VarLengthExpand(All)         |  4 | (anon_2)-[anon_3:P279*0..]->(anon_4)                                    |              0 |\n| | |                             +----+-------------------------------------------------------------------------+----------------+\n| | +Expand(All)                  |  5 | (x1)-[anon_1:P31]->(anon_2)                                             |              0 |\n| | |                             +----+-------------------------------------------------------------------------+----------------+\n| | +DirectedRelationshipTypeScan |  6 | (x1)-[anon_0:P625]->(x2)                                                |              0 |\n| |                               +----+-------------------------------------------------------------------------+----------------+\n| +Filter                         |  7 | anon_8:Entity AND anon_8.id = $autostring_1                             |              0 |\n| |                               +----+-------------------------------------------------------------------------+----------------+\n| +VarLengthExpand(All)           |  8 | (anon_6)-[anon_7:P279*0..]->(anon_8)                                    |              3 |\n| |                               +----+-------------------------------------------------------------------------+----------------+\n| +DirectedRelationshipTypeScan   |  9 | (x3)-[anon_5:P31]->(anon_6)                                             |              3 |\n+---------------------------------+----+-------------------------------------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1, x2, x3",
+  "planner-version": "5.6",
+  "EstimatedRows": 1.2520926938529185e-06,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "anon_2",
+    "x3",
+    "anon_4",
+    "x2",
+    "anon_7",
+    "anon_8",
+    "anon_3",
+    "anon_5",
+    "x1",
+    "anon_6",
+    "anon_0",
+    "anon_1"
+  ],
+  "children": [
+    {
+      "operatorType": "Filter@neo4j",
+      "Details": "none(anon_11 IN anon_3 WHERE anon_11 IN anon_7) AND not anon_1 = anon_5",
+      "EstimatedRows": 1.2520926938529185e-06,
+      "Id": 1,
+      "identifiers": [
+        "anon_2",
+        "x3",
+        "anon_4",
+        "x2",
+        "anon_7",
+        "anon_8",
+        "anon_3",
+        "anon_5",
+        "x1",
+        "anon_6",
+        "anon_0",
+        "anon_1"
+      ],
+      "children": [
+        {
+          "operatorType": "CartesianProduct@neo4j",
+          "EstimatedRows": 1.6863201264012372e-06,
+          "Id": 2,
+          "identifiers": [
+            "anon_2",
+            "x3",
+            "anon_4",
+            "x2",
+            "anon_7",
+            "anon_8",
+            "anon_3",
+            "anon_5",
+            "x1",
+            "anon_6",
+            "anon_0",
+            "anon_1"
+          ],
+          "children": [
+            {
+              "operatorType": "Filter@neo4j",
+              "Details": "anon_8:Entity AND anon_8.id = $autostring_1",
+              "EstimatedRows": 0.07499251710369592,
+              "Id": 7,
+              "identifiers": [
+                "x3",
+                "anon_7",
+                "anon_8",
+                "anon_5",
+                "anon_6"
+              ],
+              "children": [
+                {
+                  "operatorType": "VarLengthExpand(All)@neo4j",
+                  "Details": "(anon_6)-[anon_7:P279*0..]->(anon_8)",
+                  "EstimatedRows": 3.000899817336287,
+                  "Id": 8,
+                  "identifiers": [
+                    "x3",
+                    "anon_7",
+                    "anon_8",
+                    "anon_5",
+                    "anon_6"
+                  ],
+                  "children": [
+                    {
+                      "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                      "Details": "(x3)-[anon_5:P31]->(anon_6)",
+                      "EstimatedRows": 3.0,
+                      "Id": 9,
+                      "identifiers": [
+                        "anon_5",
+                        "x3",
+                        "anon_6"
+                      ],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "operatorType": "Filter@neo4j",
+              "Details": "anon_4:Entity AND anon_4.id = $autostring_0",
+              "EstimatedRows": 1.6863201264012368e-06,
+              "Id": 3,
+              "identifiers": [
+                "anon_2",
+                "anon_4",
+                "x2",
+                "anon_3",
+                "x1",
+                "anon_0",
+                "anon_1"
+              ],
+              "children": [
+                {
+                  "operatorType": "VarLengthExpand(All)@neo4j",
+                  "Details": "(anon_2)-[anon_3:P279*0..]->(anon_4)",
+                  "EstimatedRows": 6.747976937873148e-05,
+                  "Id": 4,
+                  "identifiers": [
+                    "anon_2",
+                    "anon_4",
+                    "x2",
+                    "anon_3",
+                    "x1",
+                    "anon_0",
+                    "anon_1"
+                  ],
+                  "children": [
+                    {
+                      "operatorType": "Expand(All)@neo4j",
+                      "Details": "(x1)-[anon_1:P31]->(anon_2)",
+                      "EstimatedRows": 6.745953562551357e-05,
+                      "Id": 5,
+                      "identifiers": [
+                        "anon_2",
+                        "x2",
+                        "x1",
+                        "anon_0",
+                        "anon_1"
+                      ],
+                      "children": [
+                        {
+                          "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                          "Details": "(x1)-[anon_0:P625]->(x2)",
+                          "EstimatedRows": 0.22497755131108776,
+                          "Id": 6,
+                          "identifiers": [
+                            "anon_0",
+                            "x1",
+                            "x2"
+                          ],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

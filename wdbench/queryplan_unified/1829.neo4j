@@ -1,0 +1,28 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "not anon_6 = anon_4 AND not anon_6 = anon_2 AND not anon_6 = anon_0",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_4 = anon_2 AND not anon_4 = anon_0",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "not anon_2 = anon_0",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

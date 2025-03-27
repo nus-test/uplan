@@ -1,0 +1,32 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "none(anon_9 IN anon_3 WHERE anon_9 IN anon_7) AND anon_4:Entity AND anon_4.id = $autostring_0",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "anon_8:Entity AND anon_8.id = $autostring_1",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

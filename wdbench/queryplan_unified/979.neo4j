@@ -1,0 +1,29 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Projector->Project",
+                "children": [
+                    {
+                        "Operation": "Join->CartesianProduct",
+                        "Filter->filter": "not anon_0 = anon_1",
+                        "children": [
+                            {
+                                "Operation": "Executor->Cache",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation"
+                                    }
+                                ]
+                            },
+                            {
+                                "Operation": "Join->Relation"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

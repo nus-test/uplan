@@ -1,0 +1,5 @@
+Projector->Collect Project
+row: 9172
+	Producer->Full Table Scan
+	row: 9172
+

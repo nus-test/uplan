@@ -1,0 +1,22 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "anon_0.id = $autostring_0 AND anon_0:Entity",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_3 IN anon_5",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

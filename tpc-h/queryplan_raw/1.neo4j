@@ -1,0 +1,150 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "identifiers": [
+    "avg_disc",
+    "sum_qty",
+    "count_order",
+    "`item.L_RETURNFLAG`",
+    "avg_price",
+    "sum_disc_price",
+    "sum_charge",
+    "sum_base_price",
+    "`item.L_LINESTATUS`",
+    "avg_qty"
+  ],
+  "arguments": {
+    "Order": "`item.L_RETURNFLAG` ASC, `item.L_LINESTATUS` ASC",
+    "planner-impl": "IDP",
+    "Details": "`item.L_RETURNFLAG`, `item.L_LINESTATUS`, sum_qty, sum_base_price, sum_disc_price, sum_charge, avg_qty, avg_price, avg_disc, count_order",
+    "planner-version": "5.6",
+    "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| Operator          | Id | Details                                                                                              | Estimated Rows | Ordered by                                       |\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| +ProduceResults   |  0 | `item.L_RETURNFLAG`, `item.L_LINESTATUS`, sum_qty, sum_base_price, sum_disc_price, sum_charge,       |            233 |                                                  |\n| |                 |    | avg_qty, avg_price, avg_disc, count_order                                                            |                |                                                  |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+                                                  |\n| +Sort             |  1 | `item.L_RETURNFLAG` ASC, `item.L_LINESTATUS` ASC                                                     |            233 | `item.L_RETURNFLAG` ASC, `item.L_LINESTATUS` ASC |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| +EagerAggregation |  2 | cache[item.L_RETURNFLAG] AS `item.L_RETURNFLAG`, cache[item.L_LINESTATUS] AS `item.L_LINESTATUS`, av |            233 |                                                  |\n| |                 |    | g(cache[item.L_DISCOUNT]) AS avg_disc, sum(cache[item.L_QUANTITY]) AS sum_qty, count(*) AS count_ord |                |                                                  |\n| |                 |    | er, avg(cache[item.L_QUANTITY]) AS avg_qty, avg(cache[item.L_EXTENDEDPRICE]) AS avg_price, sum(cache |                |                                                  |\n| |                 |    | [item.L_EXTENDEDPRICE] * ($autoint_2 - cache[item.L_DISCOUNT])) AS sum_disc_price, sum((cache[item.L |                |                                                  |\n| |                 |    | _EXTENDEDPRICE] * ($autoint_3 - cache[item.L_DISCOUNT])) * ($autoint_4 + cache[item.L_TAX])) AS sum_ |                |                                                  |\n| |                 |    | charge, sum(cache[item.L_EXTENDEDPRICE]) AS sum_base_price                                           |                |                                                  |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| +CacheProperties  |  3 | cache[item.L_EXTENDEDPRICE], cache[item.L_QUANTITY], cache[item.L_LINESTATUS],                       |          54170 |                                                  |\n| |                 |    | cache[item.L_DISCOUNT], cache[item.L_TAX], cache[item.L_RETURNFLAG]                                  |                |                                                  |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| +Filter           |  4 | date(item.L_SHIPDATE) <= date(my_date)                                                               |          54170 |                                                  |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| +Projection       |  5 | date($autostring_0) - duration($autostring_1) AS my_date                                             |         180566 |                                                  |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n| +NodeByLabelScan  |  6 | item:LINEITEM                                                                                        |         180566 |                                                  |\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------+\n\nTotal database accesses: ?\n",
+    "runtime-version": "5.6",
+    "runtime": "SLOTTED",
+    "Id": {
+      "low": 0,
+      "high": 0
+    },
+    "runtime-impl": "SLOTTED",
+    "EstimatedRows": 232.74406544528694,
+    "planner": "COST"
+  },
+  "children": [
+    {
+      "operatorType": "Sort@neo4j",
+      "identifiers": [
+        "avg_disc",
+        "sum_qty",
+        "count_order",
+        "`item.L_RETURNFLAG`",
+        "avg_price",
+        "sum_disc_price",
+        "sum_charge",
+        "sum_base_price",
+        "`item.L_LINESTATUS`",
+        "avg_qty"
+      ],
+      "arguments": {
+        "Order": "`item.L_RETURNFLAG` ASC, `item.L_LINESTATUS` ASC",
+        "Details": "`item.L_RETURNFLAG` ASC, `item.L_LINESTATUS` ASC",
+        "Id": {
+          "low": 1,
+          "high": 0
+        },
+        "EstimatedRows": 232.74406544528694
+      },
+      "children": [
+        {
+          "operatorType": "EagerAggregation@neo4j",
+          "identifiers": [
+            "avg_disc",
+            "sum_qty",
+            "count_order",
+            "`item.L_RETURNFLAG`",
+            "avg_price",
+            "sum_disc_price",
+            "sum_charge",
+            "sum_base_price",
+            "`item.L_LINESTATUS`",
+            "avg_qty"
+          ],
+          "arguments": {
+            "Details": "cache[item.L_RETURNFLAG] AS `item.L_RETURNFLAG`, cache[item.L_LINESTATUS] AS `item.L_LINESTATUS`, avg(cache[item.L_DISCOUNT]) AS avg_disc, sum(cache[item.L_QUANTITY]) AS sum_qty, count(*) AS count_order, avg(cache[item.L_QUANTITY]) AS avg_qty, avg(cache[item.L_EXTENDEDPRICE]) AS avg_price, sum(cache[item.L_EXTENDEDPRICE] * ($autoint_2 - cache[item.L_DISCOUNT])) AS sum_disc_price, sum((cache[item.L_EXTENDEDPRICE] * ($autoint_3 - cache[item.L_DISCOUNT])) * ($autoint_4 + cache[item.L_TAX])) AS sum_charge, sum(cache[item.L_EXTENDEDPRICE]) AS sum_base_price",
+            "Id": {
+              "low": 2,
+              "high": 0
+            },
+            "EstimatedRows": 232.74406544528694
+          },
+          "children": [
+            {
+              "operatorType": "CacheProperties@neo4j",
+              "identifiers": [
+                "item",
+                "my_date"
+              ],
+              "arguments": {
+                "Details": "cache[item.L_EXTENDEDPRICE], cache[item.L_QUANTITY], cache[item.L_LINESTATUS], cache[item.L_DISCOUNT], cache[item.L_TAX], cache[item.L_RETURNFLAG]",
+                "Id": {
+                  "low": 3,
+                  "high": 0
+                },
+                "EstimatedRows": 54169.8
+              },
+              "children": [
+                {
+                  "operatorType": "Filter@neo4j",
+                  "identifiers": [
+                    "item",
+                    "my_date"
+                  ],
+                  "arguments": {
+                    "Details": "date(item.L_SHIPDATE) <= date(my_date)",
+                    "Id": {
+                      "low": 4,
+                      "high": 0
+                    },
+                    "EstimatedRows": 54169.8
+                  },
+                  "children": [
+                    {
+                      "operatorType": "Projection@neo4j",
+                      "identifiers": [
+                        "item",
+                        "my_date"
+                      ],
+                      "arguments": {
+                        "Details": "date($autostring_0) - duration($autostring_1) AS my_date",
+                        "Id": {
+                          "low": 5,
+                          "high": 0
+                        },
+                        "EstimatedRows": 180566
+                      },
+                      "children": [
+                        {
+                          "operatorType": "NodeByLabelScan@neo4j",
+                          "identifiers": [
+                            "item"
+                          ],
+                          "arguments": {
+                            "Details": "item:LINEITEM",
+                            "Id": {
+                              "low": 6,
+                              "high": 0
+                            },
+                            "EstimatedRows": 180566
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

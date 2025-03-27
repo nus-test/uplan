@@ -1,0 +1,44 @@
+Folder->Aggregate
+row: 12760
+	Combinator->Sort
+	row: 12760
+		Join->Hash Join
+		row: 12760
+			Join->Hash Join
+			row: 12760
+				Join->Hash Join
+				row: 12760
+					Join->Hash Join
+					row: 12760
+						Join->Hash Join
+						row: 12760
+							Producer->Full Table Scan
+							row: 180566
+							name object: lineitem
+							Executor->Hash Row
+							row: 424
+								Producer->Full Table Scan
+								row: 424
+								name object: part
+						Executor->Hash Row
+						row: 300
+							Producer->Full Table Scan
+							row: 300
+							name object: supplier
+					Executor->Hash Row
+					row: 24000
+						Producer->Full Table Scan
+						row: 24000
+						name object: partsupp
+				Executor->Hash Row
+				row: 45000
+					Producer->Full Table Scan
+					row: 45000
+					name object: orders
+			Executor->Hash Row
+			row: 25
+				Producer->Full Table Scan
+				row: 25
+				name object: nation
+
+time planning: 2.546

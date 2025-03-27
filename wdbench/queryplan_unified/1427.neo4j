@@ -1,0 +1,26 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Hash Join",
+                "children": [
+                    {
+                        "Operation": "Join->Relation"
+                    },
+                    {
+                        "Operation": "Join->CartesianProduct",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation"
+                            },
+                            {
+                                "Operation": "Join->Relation"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

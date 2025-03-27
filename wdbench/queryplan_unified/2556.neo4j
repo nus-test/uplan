@@ -1,0 +1,16 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Projector->Project",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "x1 = anon_1"
+                    }
+                ]
+            }
+        ]
+    }
+}

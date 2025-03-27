@@ -1,0 +1,10 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation"
+            }
+        ]
+    }
+}

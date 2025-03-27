@@ -1,0 +1,67 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Projector->Project",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_3 = anon_5 AND not anon_4 = anon_5 AND not anon_5 = anon_6",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "not anon_0 = anon_2 AND not anon_1 = anon_2",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "not anon_3 = anon_6 AND not anon_4 = anon_6",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "Filter->filter": "not anon_3 = anon_4",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "Filter->filter": "not anon_7 = anon_9 AND not anon_8 = anon_9",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "Filter->filter": "not anon_7 = anon_8",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation",
+                                                                        "Filter->filter": "not anon_0 = anon_1",
+                                                                        "children": [
+                                                                            {
+                                                                                "Operation": "Join->Relation",
+                                                                                "children": [
+                                                                                    {
+                                                                                        "Operation": "Join->Relation",
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "Operation": "Join->Relation"
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

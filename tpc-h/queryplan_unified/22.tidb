@@ -1,0 +1,21 @@
+Combinator->Sort
+row: 1706.67
+	Projector->Project
+	row: 1706.67
+		Folder->Aggregate Hash
+		row: 1706.67
+			Projector->Project
+			row: 2133.33
+				Join->Merge
+				row: 2133.33
+					Executor->Collect Order
+					row: 10000.00
+						Producer->Index-only Scan
+						row: 10000.00
+						name object: table:orders, index:ORDERS_FK1(O_CUSTKEY)
+					Executor->Collect
+					row: 2666.67
+						Producer->Full Table Scan
+						row: 10000.00
+						name object: table:customer
+

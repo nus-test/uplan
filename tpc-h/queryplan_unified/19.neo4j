@@ -1,0 +1,11 @@
+Executor->Argument
+row: 1
+	Executor->Eager
+	row: 1
+		Executor->Cache
+		row: 5.690284033139942e-117
+			Join->Relation
+			row: 3
+
+cost model: IDP
+version: 5.6

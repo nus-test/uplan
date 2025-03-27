@@ -1,0 +1,409 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n| Operator                      | Id | Details                                                                                              | Estimated Rows |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n| +ProduceResults               |  0 | `x1.id`, `x2.id`, `x4.id`, `x6.id`, `x7.id`, `x5.id`, `x8.id`, `x9.id`, `x3.id`                      |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Projection                   |  1 | x8.id AS `x8.id`, x9.id AS `x9.id`, x2.id AS `x2.id`, x7.id AS `x7.id`, x6.id AS `x6.id`,            |              0 |\n| |                             |    | x5.id AS `x5.id`, x1.id AS `x1.id`, x4.id AS `x4.id`, x3.id AS `x3.id`                               |                |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       |  2 | not anon_7 = anon_8 AND not anon_6 = anon_8 AND not anon_4 = anon_8 AND not anon_1 = anon_8 AND not  |              0 |\n| |                             |    | anon_2 = anon_8 AND not anon_3 = anon_8 AND not anon_0 = anon_8 AND not anon_5 = anon_8 AND anon_9.i |                |\n| |                             |    | d = $autostring_0 AND anon_9:Entity                                                                  |                |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  |  3 | (x2)-[anon_8:P279]->(anon_9)                                                                         |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       |  4 | not anon_3 = anon_7 AND not anon_6 = anon_7 AND not anon_1 = anon_7 AND not anon_5 = anon_7 AND not  |              0 |\n| |                             |    | anon_2 = anon_7 AND not anon_0 = anon_7 AND not anon_4 = anon_7                                      |                |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  |  5 | (x8)<-[anon_7:P279]-(x9)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       |  6 | not anon_5 = anon_6 AND not anon_0 = anon_6 AND not anon_3 = anon_6 AND not anon_1 = anon_6 AND not  |              0 |\n| |                             |    | anon_2 = anon_6 AND not anon_4 = anon_6                                                              |                |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  |  7 | (x6)<-[anon_6:P279]-(x8)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       |  8 | not anon_0 = anon_1 AND not anon_0 = anon_3 AND not anon_0 = anon_2 AND not anon_0 = anon_4 AND not  |              0 |\n| |                             |    | anon_0 = anon_5                                                                                      |                |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  |  9 | (x1)-[anon_0:P279]->(x2)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       | 10 | not anon_1 = anon_2 AND not anon_1 = anon_3 AND not anon_1 = anon_4 AND not anon_1 = anon_5          |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  | 11 | (x3)-[anon_1:P279]->(x1)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       | 12 | not anon_2 = anon_3 AND not anon_2 = anon_4 AND not anon_2 = anon_5                                  |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  | 13 | (x4)-[anon_2:P279]->(x3)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       | 14 | not anon_3 = anon_4 AND not anon_3 = anon_5                                                          |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  | 15 | (x5)-[anon_3:P279]->(x4)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                       | 16 | not anon_4 = anon_5                                                                                  |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Expand(All)                  | 17 | (x6)-[anon_4:P279]->(x5)                                                                             |              0 |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+\n| +DirectedRelationshipTypeScan | 18 | (x7)-[anon_5:P279]->(x6)                                                                             |              3 |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "`x1.id`, `x2.id`, `x4.id`, `x6.id`, `x7.id`, `x5.id`, `x8.id`, `x9.id`, `x3.id`",
+  "planner-version": "5.6",
+  "EstimatedRows": 6.826397263784234e-30,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "`x9.id`",
+    "`x4.id`",
+    "`x2.id`",
+    "`x5.id`",
+    "`x1.id`",
+    "`x8.id`",
+    "`x7.id`",
+    "`x3.id`",
+    "`x6.id`"
+  ],
+  "children": [
+    {
+      "operatorType": "Projection@neo4j",
+      "Details": "x8.id AS `x8.id`, x9.id AS `x9.id`, x2.id AS `x2.id`, x7.id AS `x7.id`, x6.id AS `x6.id`, x5.id AS `x5.id`, x1.id AS `x1.id`, x4.id AS `x4.id`, x3.id AS `x3.id`",
+      "EstimatedRows": 6.826397263784234e-30,
+      "Id": 1,
+      "identifiers": [
+        "`x9.id`",
+        "`x4.id`",
+        "`x2.id`",
+        "`x5.id`",
+        "`x1.id`",
+        "`x8.id`",
+        "`x7.id`",
+        "`x3.id`",
+        "`x6.id`"
+      ],
+      "children": [
+        {
+          "operatorType": "Filter@neo4j",
+          "Details": "not anon_7 = anon_8 AND not anon_6 = anon_8 AND not anon_4 = anon_8 AND not anon_1 = anon_8 AND not anon_2 = anon_8 AND not anon_3 = anon_8 AND not anon_0 = anon_8 AND not anon_5 = anon_8 AND anon_9.id = $autostring_0 AND anon_9:Entity",
+          "EstimatedRows": 6.826397263784234e-30,
+          "Id": 2,
+          "identifiers": [
+            "x9",
+            "x3",
+            "anon_4",
+            "x7",
+            "x2",
+            "anon_7",
+            "anon_9",
+            "anon_3",
+            "anon_5",
+            "anon_6",
+            "x4",
+            "anon_2",
+            "x8",
+            "anon_0",
+            "anon_1",
+            "anon_8",
+            "x5",
+            "x6",
+            "x1"
+          ],
+          "children": [
+            {
+              "operatorType": "Expand(All)@neo4j",
+              "Details": "(x2)-[anon_8:P279]->(anon_9)",
+              "EstimatedRows": 1.479585264484547e-28,
+              "Id": 3,
+              "identifiers": [
+                "x9",
+                "x3",
+                "anon_4",
+                "x7",
+                "x2",
+                "anon_7",
+                "anon_9",
+                "anon_3",
+                "anon_5",
+                "anon_6",
+                "x4",
+                "anon_2",
+                "x8",
+                "anon_0",
+                "anon_1",
+                "anon_8",
+                "x5",
+                "x6",
+                "x1"
+              ],
+              "children": [
+                {
+                  "operatorType": "Filter@neo4j",
+                  "Details": "not anon_3 = anon_7 AND not anon_6 = anon_7 AND not anon_1 = anon_7 AND not anon_5 = anon_7 AND not anon_2 = anon_7 AND not anon_0 = anon_7 AND not anon_4 = anon_7",
+                  "EstimatedRows": 4.934416857055964e-25,
+                  "Id": 4,
+                  "identifiers": [
+                    "x9",
+                    "x3",
+                    "anon_4",
+                    "x7",
+                    "x2",
+                    "anon_7",
+                    "x5",
+                    "anon_3",
+                    "anon_5",
+                    "anon_6",
+                    "x4",
+                    "anon_2",
+                    "x8",
+                    "anon_0",
+                    "anon_1",
+                    "x6",
+                    "x1"
+                  ],
+                  "children": [
+                    {
+                      "operatorType": "Expand(All)@neo4j",
+                      "Details": "(x8)<-[anon_7:P279]-(x9)",
+                      "EstimatedRows": 5.294067490156673e-25,
+                      "Id": 5,
+                      "identifiers": [
+                        "x9",
+                        "x3",
+                        "anon_4",
+                        "x7",
+                        "x2",
+                        "anon_7",
+                        "x5",
+                        "anon_3",
+                        "anon_5",
+                        "anon_6",
+                        "x4",
+                        "anon_2",
+                        "x8",
+                        "anon_0",
+                        "anon_1",
+                        "x6",
+                        "x1"
+                      ],
+                      "children": [
+                        {
+                          "operatorType": "Filter@neo4j",
+                          "Details": "not anon_5 = anon_6 AND not anon_0 = anon_6 AND not anon_3 = anon_6 AND not anon_1 = anon_6 AND not anon_2 = anon_6 AND not anon_4 = anon_6",
+                          "EstimatedRows": 1.76557150796725e-21,
+                          "Id": 6,
+                          "identifiers": [
+                            "x3",
+                            "anon_4",
+                            "x7",
+                            "x2",
+                            "x5",
+                            "anon_3",
+                            "anon_5",
+                            "anon_6",
+                            "x4",
+                            "anon_2",
+                            "x8",
+                            "anon_0",
+                            "anon_1",
+                            "x6",
+                            "x1"
+                          ],
+                          "children": [
+                            {
+                              "operatorType": "Expand(All)@neo4j",
+                              "Details": "(x6)<-[anon_6:P279]-(x8)",
+                              "EstimatedRows": 1.8753146405588733e-21,
+                              "Id": 7,
+                              "identifiers": [
+                                "x3",
+                                "anon_4",
+                                "x7",
+                                "x2",
+                                "x5",
+                                "anon_3",
+                                "anon_5",
+                                "anon_6",
+                                "x4",
+                                "anon_2",
+                                "x8",
+                                "anon_0",
+                                "anon_1",
+                                "x6",
+                                "x1"
+                              ],
+                              "children": [
+                                {
+                                  "operatorType": "Filter@neo4j",
+                                  "Details": "not anon_0 = anon_1 AND not anon_0 = anon_3 AND not anon_0 = anon_2 AND not anon_0 = anon_4 AND not anon_0 = anon_5",
+                                  "EstimatedRows": 6.254174326263842e-18,
+                                  "Id": 8,
+                                  "identifiers": [
+                                    "anon_2",
+                                    "x3",
+                                    "anon_4",
+                                    "x7",
+                                    "x2",
+                                    "x5",
+                                    "anon_3",
+                                    "anon_5",
+                                    "x4",
+                                    "anon_0",
+                                    "anon_1",
+                                    "x6",
+                                    "x1"
+                                  ],
+                                  "children": [
+                                    {
+                                      "operatorType": "Expand(All)@neo4j",
+                                      "Details": "(x1)-[anon_0:P279]->(x2)",
+                                      "EstimatedRows": 6.576487658226803e-18,
+                                      "Id": 9,
+                                      "identifiers": [
+                                        "anon_2",
+                                        "x3",
+                                        "anon_4",
+                                        "x7",
+                                        "x2",
+                                        "x5",
+                                        "anon_3",
+                                        "anon_5",
+                                        "x4",
+                                        "anon_0",
+                                        "anon_1",
+                                        "x6",
+                                        "x1"
+                                      ],
+                                      "children": [
+                                        {
+                                          "operatorType": "Filter@neo4j",
+                                          "Details": "not anon_1 = anon_2 AND not anon_1 = anon_3 AND not anon_1 = anon_4 AND not anon_1 = anon_5",
+                                          "EstimatedRows": 2.193258634018639e-14,
+                                          "Id": 10,
+                                          "identifiers": [
+                                            "anon_2",
+                                            "x3",
+                                            "anon_4",
+                                            "x7",
+                                            "anon_1",
+                                            "x5",
+                                            "anon_3",
+                                            "anon_5",
+                                            "x4",
+                                            "x6",
+                                            "x1"
+                                          ],
+                                          "children": [
+                                            {
+                                              "operatorType": "Expand(All)@neo4j",
+                                              "Details": "(x3)-[anon_1:P279]->(x1)",
+                                              "EstimatedRows": 2.2832268832957565e-14,
+                                              "Id": 11,
+                                              "identifiers": [
+                                                "anon_2",
+                                                "x3",
+                                                "anon_4",
+                                                "x7",
+                                                "anon_1",
+                                                "x5",
+                                                "anon_3",
+                                                "anon_5",
+                                                "x4",
+                                                "x6",
+                                                "x1"
+                                              ],
+                                              "children": [
+                                                {
+                                                  "operatorType": "Filter@neo4j",
+                                                  "Details": "not anon_2 = anon_3 AND not anon_2 = anon_4 AND not anon_2 = anon_5",
+                                                  "EstimatedRows": 7.614561655791349e-11,
+                                                  "Id": 12,
+                                                  "identifiers": [
+                                                    "anon_2",
+                                                    "x3",
+                                                    "anon_4",
+                                                    "x7",
+                                                    "x5",
+                                                    "anon_3",
+                                                    "anon_5",
+                                                    "x6",
+                                                    "x4"
+                                                  ],
+                                                  "children": [
+                                                    {
+                                                      "operatorType": "Expand(All)@neo4j",
+                                                      "Details": "(x4)-[anon_2:P279]->(x3)",
+                                                      "EstimatedRows": 7.847644546465934e-11,
+                                                      "Id": 13,
+                                                      "identifiers": [
+                                                        "anon_2",
+                                                        "x3",
+                                                        "anon_4",
+                                                        "x7",
+                                                        "x5",
+                                                        "anon_3",
+                                                        "anon_5",
+                                                        "x6",
+                                                        "x4"
+                                                      ],
+                                                      "children": [
+                                                        {
+                                                          "operatorType": "Filter@neo4j",
+                                                          "Details": "not anon_3 = anon_4 AND not anon_3 = anon_5",
+                                                          "EstimatedRows": 2.617189456246389e-07,
+                                                          "Id": 14,
+                                                          "identifiers": [
+                                                            "anon_4",
+                                                            "x7",
+                                                            "x5",
+                                                            "anon_3",
+                                                            "anon_5",
+                                                            "x6",
+                                                            "x4"
+                                                          ],
+                                                          "children": [
+                                                            {
+                                                              "operatorType": "Expand(All)@neo4j",
+                                                              "Details": "(x5)-[anon_3:P279]->(x4)",
+                                                              "EstimatedRows": 2.6703290034143344e-07,
+                                                              "Id": 15,
+                                                              "identifiers": [
+                                                                "anon_4",
+                                                                "x7",
+                                                                "x5",
+                                                                "anon_3",
+                                                                "anon_5",
+                                                                "x6",
+                                                                "x4"
+                                                              ],
+                                                              "children": [
+                                                                {
+                                                                  "operatorType": "Filter@neo4j",
+                                                                  "Details": "not anon_4 = anon_5",
+                                                                  "EstimatedRows": 0.0008905547226386807,
+                                                                  "Id": 16,
+                                                                  "identifiers": [
+                                                                    "anon_4",
+                                                                    "x7",
+                                                                    "x5",
+                                                                    "anon_5",
+                                                                    "x6"
+                                                                  ],
+                                                                  "children": [
+                                                                    {
+                                                                      "operatorType": "Expand(All)@neo4j",
+                                                                      "Details": "(x6)-[anon_4:P279]->(x5)",
+                                                                      "EstimatedRows": 0.0008995502248875562,
+                                                                      "Id": 17,
+                                                                      "identifiers": [
+                                                                        "anon_4",
+                                                                        "x7",
+                                                                        "x5",
+                                                                        "anon_5",
+                                                                        "x6"
+                                                                      ],
+                                                                      "children": [
+                                                                        {
+                                                                          "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                                                                          "Details": "(x7)-[anon_5:P279]->(x6)",
+                                                                          "EstimatedRows": 3.0,
+                                                                          "Id": 18,
+                                                                          "identifiers": [
+                                                                            "anon_5",
+                                                                            "x7",
+                                                                            "x6"
+                                                                          ],
+                                                                          "children": []
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-----------------------+----+-------------------------------------------------------------------+----------------+\n| Operator              | Id | Details                                                           | Estimated Rows |\n+-----------------------+----+-------------------------------------------------------------------+----------------+\n| +ProduceResults       |  0 | x1                                                                |            251 |\n| |                     +----+-------------------------------------------------------------------+----------------+\n| +VarLengthExpand(All) |  1 | (anon_1)<-[anon_0:P171|P273|P75|P76|P77|P70|P71|P74|P89*0..]-(x1) |            251 |\n| |                     +----+-------------------------------------------------------------------+----------------+\n| +Filter               |  2 | anon_1.id = $autostring_0                                         |            250 |\n| |                     +----+-------------------------------------------------------------------+----------------+\n| +NodeByLabelScan      |  3 | anon_1:Entity                                                     |           4999 |\n+-----------------------+----+-------------------------------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1",
+  "planner-version": "5.6",
+  "EstimatedRows": 251.30361631132678,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "anon_1",
+    "anon_0",
+    "x1"
+  ],
+  "children": [
+    {
+      "operatorType": "VarLengthExpand(All)@neo4j",
+      "Details": "(anon_1)<-[anon_0:P171|P273|P75|P76|P77|P70|P71|P74|P89*0..]-(x1)",
+      "EstimatedRows": 251.30361631132678,
+      "Id": 1,
+      "identifiers": [
+        "anon_1",
+        "anon_0",
+        "x1"
+      ],
+      "children": [
+        {
+          "operatorType": "Filter@neo4j",
+          "Details": "anon_1.id = $autostring_0",
+          "EstimatedRows": 249.95,
+          "Id": 2,
+          "identifiers": [
+            "anon_1"
+          ],
+          "children": [
+            {
+              "operatorType": "NodeByLabelScan@neo4j",
+              "Details": "anon_1:Entity",
+              "EstimatedRows": 4999.0,
+              "Id": 3,
+              "identifiers": [
+                "anon_1"
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+Folder->Aggregate
+row: 74
+	Executor->Collect Order
+	row: 62
+		Folder->Aggregate
+		row: 31
+			Combinator->Sort
+			row: 31
+				Join->Hash Join
+				row: 31
+					Join->Nested Loop
+					row: 31
+						Join->Hash Join
+						row: 31
+							Join->Nested Loop
+							row: 155
+								Join->Nested Loop
+								row: 155
+									Join->Hash Join
+									row: 514
+										Producer->Full Table Scan
+										row: 75236
+										name object: lineitem
+										Executor->Hash Row
+										row: 41
+											Producer->Full Table Scan
+											row: 41
+											name object: part
+									Producer->Index Scan
+									row: 1
+									name object: orders
+								Producer->Index Scan
+								row: 1
+								name object: customer
+							Executor->Hash Row
+							row: 5
+								Join->Hash Join
+								row: 5
+									Producer->Full Table Scan
+									row: 25
+									name object: nation
+									Executor->Hash Row
+									row: 1
+										Producer->Full Table Scan
+										row: 1
+										name object: region
+						Producer->Index Scan
+						row: 1
+						name object: supplier
+					Executor->Hash Row
+					row: 25
+						Producer->Full Table Scan
+						row: 25
+						name object: nation
+
+time planning: 20.739

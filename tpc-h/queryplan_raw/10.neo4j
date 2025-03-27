@@ -1,0 +1,219 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "`c.id`",
+      "`c.C_ADDRESS`",
+      "`c.C_NAME`",
+      "`c.C_PHONE`",
+      "`c.C_COMMENT`",
+      "`n.N_NAME`",
+      "revenue",
+      "`c.C_ACCTBAL`"
+    ],
+    "arguments": {
+      "Order": "revenue DESC",
+      "planner-impl": "IDP",
+      "Details": "`c.id`, `c.C_NAME`, `c.C_ACCTBAL`, `n.N_NAME`, `c.C_ADDRESS`, `c.C_PHONE`, `c.C_COMMENT`, revenue",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| Operator                      | Id | Details                                                                                              | Estimated Rows | Ordered by   |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +ProduceResults               |  0 | `c.id`, `c.C_NAME`, `c.C_ACCTBAL`, `n.N_NAME`, `c.C_ADDRESS`, `c.C_PHONE`, `c.C_COMMENT`, revenue    |              0 |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+              |\n| +Top                          |  1 | revenue DESC LIMIT 20                                                                                |              0 | revenue DESC |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +EagerAggregation             |  2 | cache[c.C_ACCTBAL] AS `c.C_ACCTBAL`, cache[c.C_ADDRESS] AS `c.C_ADDRESS`, cache[c.id] AS `c.id`, cac |              0 |              |\n| |                             |    | he[c.C_COMMENT] AS `c.C_COMMENT`, cache[c.C_NAME] AS `c.C_NAME`, cache[c.C_PHONE] AS `c.C_PHONE`, n. |                |              |\n| |                             |    | N_NAME AS `n.N_NAME`, sum(tofloat(cache[li.L_EXTENDEDPRICE]) * ($autoint_3 - tofloat(cache[li.L_DISC |                |              |\n| |                             |    | OUNT]))) AS revenue                                                                                  |                |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +CacheProperties              |  3 | cache[c.C_ACCTBAL], cache[c.C_COMMENT], cache[c.id], cache[c.C_NAME], cache[c.C_ADDRESS],            |              0 |              |\n| |                             |    | cache[c.C_PHONE], cache[li.L_EXTENDEDPRICE], cache[li.L_DISCOUNT]                                    |                |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +Filter                       |  4 | li:LINEITEM AND li.L_RETURNFLAG = $autostring_2                                                      |              0 |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +Expand(All)                  |  5 | (o)<-[anon_0:IS_PART_OF]-(li)                                                                        |              0 |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +Filter                       |  6 | o:ORDER AND date(cache[o.O_ORDERDATE]) >= date($autostring_0) AND date(cache[o.O_ORDERDATE]) < date( |              0 |              |\n| |                             |    | $autostring_1)                                                                                       |                |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +Expand(All)                  |  7 | (c)<-[anon_1:MADE_BY]-(o)                                                                            |              0 |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +Filter                       |  8 | c:CUSTOMER AND n:NATION                                                                              |              3 |              |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n| +DirectedRelationshipTypeScan |  9 | (c)-[anon_2:BELONG_TO]->(n)                                                                          |              3 |              |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 0,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Top@neo4j",
+        "identifiers": [
+          "`c.id`",
+          "`c.C_ADDRESS`",
+          "`c.C_NAME`",
+          "`c.C_PHONE`",
+          "`c.C_COMMENT`",
+          "`n.N_NAME`",
+          "revenue",
+          "`c.C_ACCTBAL`"
+        ],
+        "arguments": {
+          "Order": "revenue DESC",
+          "Details": "revenue DESC LIMIT 20",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 0
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "`c.id`",
+              "`c.C_ADDRESS`",
+              "`c.C_NAME`",
+              "`c.C_PHONE`",
+              "`c.C_COMMENT`",
+              "`n.N_NAME`",
+              "revenue",
+              "`c.C_ACCTBAL`"
+            ],
+            "arguments": {
+              "Details": "cache[c.C_ACCTBAL] AS `c.C_ACCTBAL`, cache[c.C_ADDRESS] AS `c.C_ADDRESS`, cache[c.id] AS `c.id`, cache[c.C_COMMENT] AS `c.C_COMMENT`, cache[c.C_NAME] AS `c.C_NAME`, cache[c.C_PHONE] AS `c.C_PHONE`, n.N_NAME AS `n.N_NAME`, sum(tofloat(cache[li.L_EXTENDEDPRICE]) * ($autoint_3 - tofloat(cache[li.L_DISCOUNT]))) AS revenue",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 0
+            },
+            "children": [
+              {
+                "operatorType": "CacheProperties@neo4j",
+                "identifiers": [
+                  "li",
+                  "c",
+                  "o",
+                  "anon_2",
+                  "n",
+                  "anon_0",
+                  "anon_1"
+                ],
+                "arguments": {
+                  "Details": "cache[c.C_ACCTBAL], cache[c.C_COMMENT], cache[c.id], cache[c.C_NAME], cache[c.C_ADDRESS], cache[c.C_PHONE], cache[li.L_EXTENDEDPRICE], cache[li.L_DISCOUNT]",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0
+                },
+                "children": [
+                  {
+                    "operatorType": "Filter@neo4j",
+                    "identifiers": [
+                      "li",
+                      "c",
+                      "o",
+                      "anon_2",
+                      "n",
+                      "anon_0",
+                      "anon_1"
+                    ],
+                    "arguments": {
+                      "Details": "li:LINEITEM AND li.L_RETURNFLAG = $autostring_2",
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      },
+                      "EstimatedRows": 0
+                    },
+                    "children": [
+                      {
+                        "operatorType": "Expand(All)@neo4j",
+                        "identifiers": [
+                          "li",
+                          "c",
+                          "o",
+                          "anon_2",
+                          "n",
+                          "anon_0",
+                          "anon_1"
+                        ],
+                        "arguments": {
+                          "Details": "(o)<-[anon_0:IS_PART_OF]-(li)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 0
+                        },
+                        "children": [
+                          {
+                            "operatorType": "Filter@neo4j",
+                            "identifiers": [
+                              "anon_1",
+                              "c",
+                              "o",
+                              "anon_2",
+                              "n"
+                            ],
+                            "arguments": {
+                              "Details": "o:ORDER AND date(cache[o.O_ORDERDATE]) >= date($autostring_0) AND date(cache[o.O_ORDERDATE]) < date($autostring_1)",
+                              "Id": {
+                                "low": 6,
+                                "high": 0
+                              },
+                              "EstimatedRows": 0
+                            },
+                            "children": [
+                              {
+                                "operatorType": "Expand(All)@neo4j",
+                                "identifiers": [
+                                  "anon_1",
+                                  "c",
+                                  "o",
+                                  "anon_2",
+                                  "n"
+                                ],
+                                "arguments": {
+                                  "Details": "(c)<-[anon_1:MADE_BY]-(o)",
+                                  "Id": {
+                                    "low": 7,
+                                    "high": 0
+                                  },
+                                  "EstimatedRows": 0.002
+                                },
+                                "children": [
+                                  {
+                                    "operatorType": "Filter@neo4j",
+                                    "identifiers": [
+                                      "anon_2",
+                                      "c",
+                                      "n"
+                                    ],
+                                    "arguments": {
+                                      "Details": "c:CUSTOMER AND n:NATION",
+                                      "Id": {
+                                        "low": 8,
+                                        "high": 0
+                                      },
+                                      "EstimatedRows": 3
+                                    },
+                                    "children": [
+                                      {
+                                        "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                                        "identifiers": [
+                                          "anon_2",
+                                          "c",
+                                          "n"
+                                        ],
+                                        "arguments": {
+                                          "Details": "(c)-[anon_2:BELONG_TO]->(n)",
+                                          "Id": {
+                                            "low": 9,
+                                            "high": 0
+                                          },
+                                          "EstimatedRows": 3
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

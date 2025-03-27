@@ -1,0 +1,52 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Projector->Project",
+                "children": [
+                    {
+                        "Operation": "Join->CartesianProduct",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "not anon_5 = anon_7 AND anon_8.id = $autostring_3 AND anon_8:Entity",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "anon_6.id = $autostring_2 AND anon_6:Entity",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "Filter->filter": "not anon_0 = anon_1 AND anon_2.id = $autostring_0 AND anon_2:Entity",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "Operation": "Executor->Cache",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "anon_4.id = $autostring_1 AND anon_4:Entity",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "anon_0.id = $autostring_0 AND anon_0:Entity"
+            }
+        ]
+    }
+}

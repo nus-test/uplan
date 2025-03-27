@@ -1,0 +1,37 @@
+Projector->Project
+row: 100.00
+	Combinator->Sort Part
+	row: 100.00
+		Folder->Aggregate Hash
+		row: 8000.00
+			Join->Hash Join
+			row: 12500.00
+				Folder->Aggregate Hash
+				row: 8000.00
+					Executor->Collect
+					row: 8000.00
+						Folder->Aggregate Hash
+						row: 8000.00
+							Producer->Full Table Scan
+							row: 10000.00
+							name object: table:lineitem
+				Join->Hash Join
+				row: 15625.00
+					Executor->Collect
+					row: 10000.00
+						Producer->Full Table Scan
+						row: 10000.00
+						name object: table:lineitem
+					Join->Hash Join
+					row: 12500.00
+						Executor->Collect
+						row: 10000.00
+							Producer->Full Table Scan
+							row: 10000.00
+							name object: table:customer
+						Executor->Collect
+						row: 10000.00
+							Producer->Full Table Scan
+							row: 10000.00
+							name object: table:orders
+

@@ -1,0 +1,50 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "none(anon_12 IN anon_6 WHERE anon_12 IN anon_10) AND anon_7:Entity AND anon_7.id = $autostring_0",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_1 = anon_2 AND not anon_1 = anon_3",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "anon_11:Entity AND anon_11.id = $autostring_1",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "not anon_4 = anon_8",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "Filter->filter": "not anon_2 = anon_3",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

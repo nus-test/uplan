@@ -1,0 +1,24 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->CartesianProduct",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "children": [
+                            {
+                                "Operation": "Producer->Range Scan",
+                                "Filter->filter": "anon_2.id = $autostring_0"
+                            }
+                        ]
+                    },
+                    {
+                        "Operation": "Join->Relation"
+                    }
+                ]
+            }
+        ]
+    }
+}

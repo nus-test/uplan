@@ -1,0 +1,20 @@
+Combinator->Sort
+	Folder->Group
+		Join->Nested Loop
+		row: 0.0
+			Join->Nested Loop
+			row: 9203
+				Producer->Full Table Scan
+				row: 2378
+				name object: PART
+				Producer->Index Scan
+				row: 9203
+				name object: PARTSUPP
+			Producer->Index Scan
+			row: 0.0
+			name object: <subquery2>
+			Executor->Materialize
+				Producer->Full Table Scan
+				row: 300
+				name object: SUPPLIER
+

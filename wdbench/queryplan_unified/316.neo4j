@@ -1,0 +1,65 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "not anon_10 = anon_14 AND anon_11.id = $autostring_1 AND anon_11:Entity",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_2 = anon_8 AND not anon_2 = anon_12 AND anon_3.id = $autostring_0 AND anon_3:Entity",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "not anon_8 = anon_12",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "anon_15.id = $autostring_2 AND anon_15:Entity",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "Filter->filter": "not anon_6 = anon_7",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation",
+                                                                        "children": [
+                                                                            {
+                                                                                "Operation": "Join->Relation",
+                                                                                "children": [
+                                                                                    {
+                                                                                        "Operation": "Join->Relation",
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "Operation": "Join->Relation"
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

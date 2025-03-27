@@ -1,0 +1,24 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->CartesianProduct",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "anon_4:Entity AND anon_4.id = $autostring_0",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation"
+                            }
+                        ]
+                    },
+                    {
+                        "Operation": "Join->Relation"
+                    }
+                ]
+            }
+        ]
+    }
+}

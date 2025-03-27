@@ -1,0 +1,23 @@
+Executor->Argument
+row: 1.7782794100389228
+	Combinator->Sort
+	row: 1.7782794100389228
+		Executor->Eager
+		row: 1.7782794100389228
+			Executor->Eager
+			row: 3.1622776601683795
+				Join->Nested Loop
+				row: 10
+					Producer->Range Scan
+					row: 10
+					Producer->Constant
+					row: 10
+						Executor->Cache
+						row: 0
+							Join->Relation
+							row: 0
+								Executor->Argument
+								row: 10
+
+cost model: IDP
+version: 5.6

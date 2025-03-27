@@ -1,0 +1,31 @@
+Executor->Argument
+row: 1.5553234304674426e-17
+	Projector->Project
+	row: 1.5553234304674426e-17
+		Executor->Cache
+		row: 1.5553234304674426e-17
+			Combinator->Sort
+			row: 1.5553234304674426e-17
+				Projector->Project
+				row: 1.5553234304674426e-17
+					Executor->Cache
+					row: 2.5922057174457372e-14
+						Join->Relation
+						row: 5.184411434891473e-13
+							Join->Relation
+							row: 4.320342862409562e-12
+								Join->Relation
+								row: 8.640685724819123e-10
+									Join->Relation
+									row: 4.3203428624095607e-10
+										Executor->Eager
+										row: 1.2
+											Join->Relation
+											row: 1.4400000000000002
+												Join->Relation
+												row: 0.36
+													Join->Relation
+													row: 3
+
+cost model: IDP
+version: 5.6

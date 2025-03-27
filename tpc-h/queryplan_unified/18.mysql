@@ -1,0 +1,27 @@
+Combinator->Sort
+	Folder->Group
+		Join->Nested Loop
+		row: 180928
+			Join->Nested Loop
+			row: 44704
+				Join->Nested Loop
+				row: 44704
+					Producer->Full Table Scan
+					row: 44704
+					name object: ORDERS
+					Producer->Subquery Scan
+						Producer->Index Scan
+						row: 0.0
+						name object: <materialized_subquery>
+						Executor->Materialize
+							Folder->Group
+								Producer->Index-Only Scan
+								row: 178666
+								name object: LINEITEM
+				Producer->Index Scan
+				row: 44704
+				name object: CUSTOMER
+			Producer->Index Scan
+			row: 180928
+			name object: LINEITEM
+

@@ -1,0 +1,70 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "revenue"
+    ],
+    "arguments": {
+      "planner-impl": "IDP",
+      "Details": "revenue",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n| Operator          | Id | Details                                                                                              | Estimated Rows |\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n| +ProduceResults   |  0 | revenue                                                                                              |              1 |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+\n| +EagerAggregation |  1 | sum(li.L_EXTENDEDPRICE * tofloat(cache[li.L_DISCOUNT])) AS revenue                                   |              1 |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter           |  2 | tofloat(cache[li.L_DISCOUNT]) > $autodouble_2 AND date(cache[li.L_SHIPDATE]) < date($autostring_1) A |            439 |\n| |                 |    | ND li.L_QUANTITY < $autoint_4 AND date(cache[li.L_SHIPDATE]) >= date($autostring_0) AND tofloat(cach |                |\n| |                 |    | e[li.L_DISCOUNT]) < $autodouble_3                                                                    |                |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+\n| +NodeByLabelScan  |  3 | li:LINEITEM                                                                                          |         180566 |\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 1,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "EagerAggregation@neo4j",
+        "identifiers": [
+          "revenue"
+        ],
+        "arguments": {
+          "Details": "sum(li.L_EXTENDEDPRICE * tofloat(cache[li.L_DISCOUNT])) AS revenue",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 1
+        },
+        "children": [
+          {
+            "operatorType": "Filter@neo4j",
+            "identifiers": [
+              "li"
+            ],
+            "arguments": {
+              "Details": "tofloat(cache[li.L_DISCOUNT]) > $autodouble_2 AND date(cache[li.L_SHIPDATE]) < date($autostring_1) AND li.L_QUANTITY < $autoint_4 AND date(cache[li.L_SHIPDATE]) >= date($autostring_0) AND tofloat(cache[li.L_DISCOUNT]) < $autodouble_3",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 438.7753799999999
+            },
+            "children": [
+              {
+                "operatorType": "NodeByLabelScan@neo4j",
+                "identifiers": [
+                  "li"
+                ],
+                "arguments": {
+                  "Details": "li:LINEITEM",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 180566
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

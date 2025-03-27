@@ -1,0 +1,15 @@
+Executor->Argument
+row: 1
+	Projector->Project
+	row: 1
+		Executor->Eager
+		row: 1
+			Executor->Cache
+			row: 0.27
+				Projector->Project
+				row: 3
+					Join->Relation
+					row: 3
+
+cost model: IDP
+version: 5.6

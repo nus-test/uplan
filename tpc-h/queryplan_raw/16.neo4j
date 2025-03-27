@@ -1,0 +1,172 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "`p.P_BRAND`",
+      "`p.P_TYPE`",
+      "`p.P_SIZE`",
+      "supplier_cnt"
+    ],
+    "arguments": {
+      "Order": "supplier_cnt DESC, `p.P_BRAND` ASC, `p.P_TYPE` ASC, `p.P_SIZE` ASC",
+      "planner-impl": "IDP",
+      "Details": "`p.P_BRAND`, `p.P_TYPE`, `p.P_SIZE`, supplier_cnt",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| Operator                        | Id | Details                                                                                              | Estimated Rows | Ordered by                                                         |\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +ProduceResults                 |  0 | `p.P_BRAND`, `p.P_TYPE`, `p.P_SIZE`, supplier_cnt                                                    |              3 |                                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+                                                                    |\n| +Sort                           |  1 | supplier_cnt DESC, `p.P_BRAND` ASC, `p.P_TYPE` ASC, `p.P_SIZE` ASC                                   |              3 | supplier_cnt DESC, `p.P_BRAND` ASC, `p.P_TYPE` ASC, `p.P_SIZE` ASC |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +EagerAggregation               |  2 | cache[p.P_BRAND] AS `p.P_BRAND`, cache[p.P_TYPE] AS `p.P_TYPE`, cache[p.P_SIZE] AS `p.P_SIZE`, count |              3 |                                                                    |\n| |                               |    | (DISTINCT cache[ps.PS_SUPPKEY]) AS supplier_cnt                                                      |                |                                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +Filter                         |  3 | ps:PARTSUPP AND p:PART AND not cache[p.P_TYPE] =~ $autostring_2 AND cache[p.P_SIZE] IN $autolist_3 A |              7 |                                                                    |\n| |                               |    | ND not cache[ps.PS_SUPPKEY] IN p_id AND not cache[p.P_BRAND] = $autostring_1                         |                |                                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +Apply                          |  4 |                                                                                                      |             45 |                                                                    |\n| |\\                              +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| | +DirectedRelationshipTypeScan |  5 | (ps)-[anon_0:COMPOSED_BY]->(p)                                                                       |             45 |                                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +Projection                     |  6 | s.id AS p_id                                                                                         |             15 |                                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +Filter                         |  7 | s.S_COMMENT =~ $autostring_0                                                                         |             15 |                                                                    |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n| +NodeByLabelScan                |  8 | s:SUPPLIER                                                                                           |            300 |                                                                    |\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+--------------------------------------------------------------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 2.6622718693104446,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Sort@neo4j",
+        "identifiers": [
+          "`p.P_BRAND`",
+          "`p.P_TYPE`",
+          "`p.P_SIZE`",
+          "supplier_cnt"
+        ],
+        "arguments": {
+          "Order": "supplier_cnt DESC, `p.P_BRAND` ASC, `p.P_TYPE` ASC, `p.P_SIZE` ASC",
+          "Details": "supplier_cnt DESC, `p.P_BRAND` ASC, `p.P_TYPE` ASC, `p.P_SIZE` ASC",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 2.6622718693104446
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "`p.P_BRAND`",
+              "`p.P_TYPE`",
+              "`p.P_SIZE`",
+              "supplier_cnt"
+            ],
+            "arguments": {
+              "Details": "cache[p.P_BRAND] AS `p.P_BRAND`, cache[p.P_TYPE] AS `p.P_TYPE`, cache[p.P_SIZE] AS `p.P_SIZE`, count(DISTINCT cache[ps.PS_SUPPKEY]) AS supplier_cnt",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 2.6622718693104446
+            },
+            "children": [
+              {
+                "operatorType": "Filter@neo4j",
+                "identifiers": [
+                  "s",
+                  "ps",
+                  "p",
+                  "anon_0",
+                  "p_id"
+                ],
+                "arguments": {
+                  "Details": "ps:PARTSUPP AND p:PART AND not cache[p.P_TYPE] =~ $autostring_2 AND cache[p.P_SIZE] IN $autolist_3 AND not cache[ps.PS_SUPPKEY] IN p_id AND not cache[p.P_BRAND] = $autostring_1",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 7.087691506121728
+                },
+                "children": [
+                  {
+                    "operatorType": "Apply@neo4j",
+                    "identifiers": [
+                      "s",
+                      "ps",
+                      "p",
+                      "anon_0",
+                      "p_id"
+                    ],
+                    "arguments": {
+                      "EstimatedRows": 44.99999999999999,
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      }
+                    },
+                    "children": [
+                      {
+                        "operatorType": "Projection@neo4j",
+                        "identifiers": [
+                          "s",
+                          "p_id"
+                        ],
+                        "arguments": {
+                          "Details": "s.id AS p_id",
+                          "Id": {
+                            "low": 6,
+                            "high": 0
+                          },
+                          "EstimatedRows": 14.999999999999998
+                        },
+                        "children": [
+                          {
+                            "operatorType": "Filter@neo4j",
+                            "identifiers": [
+                              "s"
+                            ],
+                            "arguments": {
+                              "Details": "s.S_COMMENT =~ $autostring_0",
+                              "Id": {
+                                "low": 7,
+                                "high": 0
+                              },
+                              "EstimatedRows": 14.999999999999998
+                            },
+                            "children": [
+                              {
+                                "operatorType": "NodeByLabelScan@neo4j",
+                                "identifiers": [
+                                  "s"
+                                ],
+                                "arguments": {
+                                  "Details": "s:SUPPLIER",
+                                  "Id": {
+                                    "low": 8,
+                                    "high": 0
+                                  },
+                                  "EstimatedRows": 300
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                        "identifiers": [
+                          "s",
+                          "ps",
+                          "p",
+                          "anon_0",
+                          "p_id"
+                        ],
+                        "arguments": {
+                          "Details": "(ps)-[anon_0:COMPOSED_BY]->(p)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 44.99999999999999
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

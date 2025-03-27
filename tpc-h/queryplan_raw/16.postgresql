@@ -1,0 +1,131 @@
+                                                                                            QUERY PLAN                                                                                            
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ [                                                                                                                                                                                               +
+   {                                                                                                                                                                                             +
+     "Plan": {                                                                                                                                                                                   +
+       "Node Type": "Sort",                                                                                                                                                                      +
+       "Parallel Aware": false,                                                                                                                                                                  +
+       "Async Capable": false,                                                                                                                                                                   +
+       "Startup Cost": 1160.19,                                                                                                                                                                  +
+       "Total Cost": 1161.38,                                                                                                                                                                    +
+       "Plan Rows": 475,                                                                                                                                                                         +
+       "Plan Width": 44,                                                                                                                                                                         +
+       "Output": ["part.p_brand", "part.p_type", "part.p_size", "(count(DISTINCT partsupp.ps_suppkey))"],                                                                                        +
+       "Sort Key": ["(count(DISTINCT partsupp.ps_suppkey)) DESC", "part.p_brand", "part.p_type", "part.p_size"],                                                                                 +
+       "Plans": [                                                                                                                                                                                +
+         {                                                                                                                                                                                       +
+           "Node Type": "Aggregate",                                                                                                                                                             +
+           "Strategy": "Sorted",                                                                                                                                                                 +
+           "Partial Mode": "Simple",                                                                                                                                                             +
+           "Parent Relationship": "Outer",                                                                                                                                                       +
+           "Parallel Aware": false,                                                                                                                                                              +
+           "Async Capable": false,                                                                                                                                                               +
+           "Startup Cost": 1112.50,                                                                                                                                                              +
+           "Total Cost": 1139.07,                                                                                                                                                                +
+           "Plan Rows": 475,                                                                                                                                                                     +
+           "Plan Width": 44,                                                                                                                                                                     +
+           "Output": ["part.p_brand", "part.p_type", "part.p_size", "count(DISTINCT partsupp.ps_suppkey)"],                                                                                      +
+           "Group Key": ["part.p_brand", "part.p_type", "part.p_size"],                                                                                                                          +
+           "Plans": [                                                                                                                                                                            +
+             {                                                                                                                                                                                   +
+               "Node Type": "Sort",                                                                                                                                                              +
+               "Parent Relationship": "Outer",                                                                                                                                                   +
+               "Parallel Aware": false,                                                                                                                                                          +
+               "Async Capable": false,                                                                                                                                                           +
+               "Startup Cost": 1112.50,                                                                                                                                                          +
+               "Total Cost": 1116.86,                                                                                                                                                            +
+               "Plan Rows": 1746,                                                                                                                                                                +
+               "Plan Width": 40,                                                                                                                                                                 +
+               "Output": ["part.p_brand", "part.p_type", "part.p_size", "partsupp.ps_suppkey"],                                                                                                  +
+               "Sort Key": ["part.p_brand", "part.p_type", "part.p_size"],                                                                                                                       +
+               "Plans": [                                                                                                                                                                        +
+                 {                                                                                                                                                                               +
+                   "Node Type": "Hash Join",                                                                                                                                                     +
+                   "Parent Relationship": "Outer",                                                                                                                                               +
+                   "Parallel Aware": false,                                                                                                                                                      +
+                   "Async Capable": false,                                                                                                                                                       +
+                   "Join Type": "Inner",                                                                                                                                                         +
+                   "Startup Cost": 294.95,                                                                                                                                                       +
+                   "Total Cost": 1018.47,                                                                                                                                                        +
+                   "Plan Rows": 1746,                                                                                                                                                            +
+                   "Plan Width": 40,                                                                                                                                                             +
+                   "Output": ["part.p_brand", "part.p_type", "part.p_size", "partsupp.ps_suppkey"],                                                                                              +
+                   "Inner Unique": true,                                                                                                                                                         +
+                   "Hash Cond": "(partsupp.ps_partkey = part.p_partkey)",                                                                                                                        +
+                   "Plans": [                                                                                                                                                                    +
+                     {                                                                                                                                                                           +
+                       "Node Type": "Index Only Scan",                                                                                                                                           +
+                       "Parent Relationship": "Outer",                                                                                                                                           +
+                       "Parallel Aware": false,                                                                                                                                                  +
+                       "Async Capable": false,                                                                                                                                                   +
+                       "Scan Direction": "Forward",                                                                                                                                              +
+                       "Index Name": "partsupp_pkey",                                                                                                                                            +
+                       "Relation Name": "partsupp",                                                                                                                                              +
+                       "Schema": "public",                                                                                                                                                       +
+                       "Alias": "partsupp",                                                                                                                                                      +
+                       "Startup Cost": 11.04,                                                                                                                                                    +
+                       "Total Cost": 703.04,                                                                                                                                                     +
+                       "Plan Rows": 12000,                                                                                                                                                       +
+                       "Plan Width": 8,                                                                                                                                                          +
+                       "Output": ["partsupp.ps_partkey", "partsupp.ps_suppkey"],                                                                                                                 +
+                       "Filter": "(NOT (hashed SubPlan 1))",                                                                                                                                     +
+                       "Plans": [                                                                                                                                                                +
+                         {                                                                                                                                                                       +
+                           "Node Type": "Seq Scan",                                                                                                                                              +
+                           "Parent Relationship": "SubPlan",                                                                                                                                     +
+                           "Subplan Name": "SubPlan 1",                                                                                                                                          +
+                           "Parallel Aware": false,                                                                                                                                              +
+                           "Async Capable": false,                                                                                                                                               +
+                           "Relation Name": "supplier",                                                                                                                                          +
+                           "Schema": "public",                                                                                                                                                   +
+                           "Alias": "supplier",                                                                                                                                                  +
+                           "Startup Cost": 0.00,                                                                                                                                                 +
+                           "Total Cost": 10.75,                                                                                                                                                  +
+                           "Plan Rows": 1,                                                                                                                                                       +
+                           "Plan Width": 4,                                                                                                                                                      +
+                           "Output": ["supplier.s_suppkey"],                                                                                                                                     +
+                           "Filter": "((supplier.s_comment)::text ~~ '%Customer%Complaints%'::text)"                                                                                             +
+                         }                                                                                                                                                                       +
+                       ]                                                                                                                                                                         +
+                     },                                                                                                                                                                          +
+                     {                                                                                                                                                                           +
+                       "Node Type": "Hash",                                                                                                                                                      +
+                       "Parent Relationship": "Inner",                                                                                                                                           +
+                       "Parallel Aware": false,                                                                                                                                                  +
+                       "Async Capable": false,                                                                                                                                                   +
+                       "Startup Cost": 273.00,                                                                                                                                                   +
+                       "Total Cost": 273.00,                                                                                                                                                     +
+                       "Plan Rows": 873,                                                                                                                                                         +
+                       "Plan Width": 40,                                                                                                                                                         +
+                       "Output": ["part.p_brand", "part.p_type", "part.p_size", "part.p_partkey"],                                                                                               +
+                       "Plans": [                                                                                                                                                                +
+                         {                                                                                                                                                                       +
+                           "Node Type": "Seq Scan",                                                                                                                                              +
+                           "Parent Relationship": "Outer",                                                                                                                                       +
+                           "Parallel Aware": false,                                                                                                                                              +
+                           "Async Capable": false,                                                                                                                                               +
+                           "Relation Name": "part",                                                                                                                                              +
+                           "Schema": "public",                                                                                                                                                   +
+                           "Alias": "part",                                                                                                                                                      +
+                           "Startup Cost": 0.00,                                                                                                                                                 +
+                           "Total Cost": 273.00,                                                                                                                                                 +
+                           "Plan Rows": 873,                                                                                                                                                     +
+                           "Plan Width": 40,                                                                                                                                                     +
+                           "Output": ["part.p_brand", "part.p_type", "part.p_size", "part.p_partkey"],                                                                                           +
+                           "Filter": "((part.p_brand <> 'Brand#34'::bpchar) AND ((part.p_type)::text !~~ 'LARGE BRUSHED%'::text) AND (part.p_size = ANY ('{48,19,12,4,41,7,21,39}'::integer[])))"+
+                         }                                                                                                                                                                       +
+                       ]                                                                                                                                                                         +
+                     }                                                                                                                                                                           +
+                   ]                                                                                                                                                                             +
+                 }                                                                                                                                                                               +
+               ]                                                                                                                                                                                 +
+             }                                                                                                                                                                                   +
+           ]                                                                                                                                                                                     +
+         }                                                                                                                                                                                       +
+       ]                                                                                                                                                                                         +
+     },                                                                                                                                                                                          +
+     "Planning Time": 0.731                                                                                                                                                                      +
+   }                                                                                                                                                                                             +
+ ]
+(1 row)
+

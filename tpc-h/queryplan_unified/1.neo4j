@@ -1,0 +1,15 @@
+Executor->Argument
+row: 232.74406544528694
+	Combinator->Sort
+	row: 232.74406544528694
+		Executor->Eager
+		row: 232.74406544528694
+			Executor->Cache
+			row: 54169.8
+				Projector->Project
+				row: 180566
+					Producer->Range Scan
+					row: 180566
+
+cost model: IDP
+version: 5.6

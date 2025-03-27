@@ -1,0 +1,245 @@
+{
+  "explainVersion": "1",
+  "stages": [
+    {
+      "$cursor": {
+        "queryPlanner": {
+          "namespace": "mydb.orders",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "ORDERDATE": {
+              "$lt": {
+                "$date": {
+                  "$numberLong": "946684800000"
+                }
+              }
+            }
+          },
+          "queryHash": "B0D2CFCF",
+          "planCacheKey": "B0D2CFCF",
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "PROJECTION_DEFAULT",
+            "transformBy": {
+              "_id": true,
+              "ORDERDATE": true,
+              "ORDERPRIORITY": true,
+              "eq": {
+                "$cond": [
+                  {
+                    "$lt": [
+                      "$Items.COMMITDATE",
+                      "$Items.RECEIPTDATE"
+                    ]
+                  },
+                  {
+                    "$const": 0
+                  },
+                  {
+                    "$const": 1
+                  }
+                ]
+              }
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "filter": {
+                "ORDERDATE": {
+                  "$lt": {
+                    "$date": {
+                      "$numberLong": "946684800000"
+                    }
+                  }
+                }
+              },
+              "direction": "forward"
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 45000,
+          "executionTimeMillis": 211,
+          "totalKeysExamined": 0,
+          "totalDocsExamined": 45000,
+          "executionStages": {
+            "stage": "PROJECTION_DEFAULT",
+            "nReturned": 45000,
+            "executionTimeMillisEstimate": 54,
+            "works": 45002,
+            "advanced": 45000,
+            "needTime": 1,
+            "needYield": 0,
+            "saveState": 49,
+            "restoreState": 49,
+            "isEOF": 1,
+            "transformBy": {
+              "_id": true,
+              "ORDERDATE": true,
+              "ORDERPRIORITY": true,
+              "eq": {
+                "$cond": [
+                  {
+                    "$lt": [
+                      "$Items.COMMITDATE",
+                      "$Items.RECEIPTDATE"
+                    ]
+                  },
+                  {
+                    "$const": 0
+                  },
+                  {
+                    "$const": 1
+                  }
+                ]
+              }
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "filter": {
+                "ORDERDATE": {
+                  "$lt": {
+                    "$date": {
+                      "$numberLong": "946684800000"
+                    }
+                  }
+                }
+              },
+              "nReturned": 45000,
+              "executionTimeMillisEstimate": 14,
+              "works": 45002,
+              "advanced": 45000,
+              "needTime": 1,
+              "needYield": 0,
+              "saveState": 49,
+              "restoreState": 49,
+              "isEOF": 1,
+              "direction": "forward",
+              "docsExamined": 45000
+            }
+          },
+          "allPlansExecution": []
+        }
+      },
+      "nReturned": 45000,
+      "executionTimeMillisEstimate": 209
+    },
+    {
+      "$match": {
+        "eq": {
+          "$eq": 1
+        }
+      },
+      "nReturned": 21149,
+      "executionTimeMillisEstimate": 209
+    },
+    {
+      "$group": {
+        "_id": {
+          "ORDERPRIORITY": "$ORDERPRIORITY"
+        },
+        "order_count": {
+          "$sum": {
+            "$const": 1
+          }
+        }
+      },
+      "maxAccumulatorMemoryUsageBytes": {
+        "order_count": 400
+      },
+      "totalOutputDataSizeBytes": 2401,
+      "usedDisk": false,
+      "spills": 0,
+      "nReturned": 5,
+      "executionTimeMillisEstimate": 211
+    },
+    {
+      "$sort": {
+        "sortKey": {
+          "ORDERPRIORITY": 1
+        }
+      },
+      "totalDataSizeSortedBytesEstimate": 2441,
+      "usedDisk": false,
+      "spills": 0,
+      "nReturned": 5,
+      "executionTimeMillisEstimate": 211
+    }
+  ],
+  "serverInfo": {
+    "host": "soccf-plser3-10",
+    "port": 27017,
+    "version": "6.0.4",
+    "gitVersion": "44ff59461c1353638a71e710f385a566bcd2f547"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+  },
+  "command": {
+    "aggregate": "orders",
+    "pipeline": [
+      {
+        "$project": {
+          "ORDERDATE": 1,
+          "ORDERPRIORITY": 1,
+          "eq": {
+            "$cond": [
+              {
+                "$lt": [
+                  "$Items.COMMITDATE",
+                  "$Items.RECEIPTDATE"
+                ]
+              },
+              0,
+              1
+            ]
+          }
+        }
+      },
+      {
+        "$match": {
+          "ORDERDATE": {
+            "$lt": {
+              "$date": {
+                "$numberLong": "946684800000"
+              }
+            }
+          },
+          "eq": {
+            "$eq": 1
+          }
+        }
+      },
+      {
+        "$group": {
+          "_id": {
+            "ORDERPRIORITY": "$ORDERPRIORITY"
+          },
+          "order_count": {
+            "$sum": 1
+          }
+        }
+      },
+      {
+        "$sort": {
+          "ORDERPRIORITY": 1
+        }
+      }
+    ],
+    "allowDiskUse": true,
+    "cursor": {},
+    "maxTimeMS": 60000,
+    "$db": "mydb"
+  },
+  "ok": 1
+}

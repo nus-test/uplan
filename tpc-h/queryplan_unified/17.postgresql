@@ -1,0 +1,19 @@
+Folder->Aggregate
+row: 1
+	Join->Hash Join
+	row: 50
+		Producer->Full Table Scan
+		row: 180566
+		name object: lineitem
+		Executor->Hash Row
+		row: 5
+			Producer->Full Table Scan
+			row: 5
+			name object: part
+		Folder->Aggregate
+		row: 1
+			Producer->Full Table Scan
+			row: 30
+			name object: lineitem
+
+time planning: 0.551

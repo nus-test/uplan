@@ -1,0 +1,17 @@
+Combinator->Sort
+	Folder->Group
+		Join->Nested Loop
+		row: 1458
+			Join->Nested Loop
+			row: 1458
+				Producer->Full Table Scan
+				row: 1458
+				name object: CUSTOMER
+				Producer->Subquery Scan
+					Producer->Full Table Scan
+					row: 1458
+					name object: CUSTOMER
+			Producer->Index Scan
+			row: 1458
+			name object: ORDERS
+

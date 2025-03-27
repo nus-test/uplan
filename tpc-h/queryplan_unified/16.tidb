@@ -1,0 +1,28 @@
+Combinator->Sort
+row: 14.40
+	Projector->Project
+	row: 14.40
+		Folder->Aggregate Hash
+		row: 14.40
+			Join->Index Join
+			row: 720.06
+				Projector->Project
+				row: 900.08
+					Join->Merge
+					row: 900.08
+						Executor->Collect
+						row: 10000.00
+							Producer->Full Table Scan
+							row: 10000.00
+							name object: table:partsupp
+						Executor->Collect
+						row: 720.06
+							Producer->Full Table Scan
+							row: 6000.00
+							name object: table:part
+				Executor->Collect
+				row: 720.06
+					Producer->Range Scan
+					row: 900.08
+					name object: table:supplier
+

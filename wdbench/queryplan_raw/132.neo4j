@@ -1,0 +1,105 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+---------------------------+----------------+\n| Operator                      | Id | Details                   | Estimated Rows |\n+-------------------------------+----+---------------------------+----------------+\n| +ProduceResults               |  0 | x1, x2, x3, x4            |              0 |\n| |                             +----+---------------------------+----------------+\n| +Filter                       |  1 | not anon_0 = anon_1       |              0 |\n| |                             +----+---------------------------+----------------+\n| +Expand(Into)                 |  2 | (x1)-[anon_0:P105]->(x2)  |              0 |\n| |                             +----+---------------------------+----------------+\n| +VarLengthExpand(All)         |  3 | (x4)-[anon_3:P361*]->(x2) |              0 |\n| |                             +----+---------------------------+----------------+\n| +Expand(All)                  |  4 | (x3)<-[anon_2:P171]-(x1)  |              0 |\n| |                             +----+---------------------------+----------------+\n| +DirectedRelationshipTypeScan |  5 | (x3)-[anon_1:P105]->(x4)  |              3 |\n+-------------------------------+----+---------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1, x2, x3, x4",
+  "planner-version": "5.6",
+  "EstimatedRows": 8.005358423663806e-15,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "anon_2",
+    "x3",
+    "x2",
+    "anon_3",
+    "x1",
+    "x4",
+    "anon_0",
+    "anon_1"
+  ],
+  "children": [
+    {
+      "operatorType": "Filter@neo4j",
+      "Details": "not anon_0 = anon_1",
+      "EstimatedRows": 8.005358423663806e-15,
+      "Id": 1,
+      "identifiers": [
+        "anon_2",
+        "x3",
+        "x2",
+        "anon_3",
+        "x1",
+        "x4",
+        "anon_0",
+        "anon_1"
+      ],
+      "children": [
+        {
+          "operatorType": "Expand(Into)@neo4j",
+          "Details": "(x1)-[anon_0:P105]->(x2)",
+          "EstimatedRows": 8.086220629963438e-15,
+          "Id": 2,
+          "identifiers": [
+            "anon_2",
+            "x3",
+            "x2",
+            "anon_3",
+            "x1",
+            "x4",
+            "anon_0",
+            "anon_1"
+          ],
+          "children": [
+            {
+              "operatorType": "VarLengthExpand(All)@neo4j",
+              "Details": "(x4)-[anon_3:P361*]->(x2)",
+              "EstimatedRows": 2.6981029573828537e-07,
+              "Id": 3,
+              "identifiers": [
+                "anon_2",
+                "x3",
+                "x2",
+                "anon_1",
+                "anon_3",
+                "x1",
+                "x4"
+              ],
+              "children": [
+                {
+                  "operatorType": "Expand(All)@neo4j",
+                  "Details": "(x3)<-[anon_2:P171]-(x1)",
+                  "EstimatedRows": 0.0008995502248875562,
+                  "Id": 4,
+                  "identifiers": [
+                    "anon_2",
+                    "x3",
+                    "anon_1",
+                    "x1",
+                    "x4"
+                  ],
+                  "children": [
+                    {
+                      "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                      "Details": "(x3)-[anon_1:P105]->(x4)",
+                      "EstimatedRows": 3.0,
+                      "Id": 5,
+                      "identifiers": [
+                        "anon_1",
+                        "x3",
+                        "x4"
+                      ],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

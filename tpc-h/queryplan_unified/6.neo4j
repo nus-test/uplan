@@ -1,0 +1,9 @@
+Executor->Argument
+row: 1
+	Executor->Eager
+	row: 1
+		Producer->Range Scan
+		row: 180566
+
+cost model: IDP
+version: 5.6

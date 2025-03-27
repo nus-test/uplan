@@ -1,0 +1,21 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Relation",
+                "Filter->filter": "none(anon_3 IN anon_2 WHERE anon_3 IN anon_0)",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "children": [
+                            {
+                                "Operation": "Producer->Full Table Scan"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

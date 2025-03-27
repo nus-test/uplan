@@ -1,0 +1,119 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+---------------------------------+----+---------------------------------------------+----------------+\n| Operator                        | Id | Details                                     | Estimated Rows |\n+---------------------------------+----+---------------------------------------------+----------------+\n| +ProduceResults                 |  0 | x1, x2, x3, x4                              |              0 |\n| |                               +----+---------------------------------------------+----------------+\n| +CartesianProduct               |  1 |                                             |              0 |\n| |\\                              +----+---------------------------------------------+----------------+\n| | +DirectedRelationshipTypeScan |  2 | (x1)-[anon_0:P18]->(x2)                     |              0 |\n| |                               +----+---------------------------------------------+----------------+\n| +Filter                         |  3 | anon_4:Entity AND anon_4.id = $autostring_0 |              0 |\n| |                               +----+---------------------------------------------+----------------+\n| +VarLengthExpand(All)           |  4 | (anon_2)-[anon_3:P279*0..]->(anon_4)        |              0 |\n| |                               +----+---------------------------------------------+----------------+\n| +Expand(All)                    |  5 | (x3)-[anon_5:P22|P25|P40|P1038|P3373]->(x4) |              0 |\n| |                               +----+---------------------------------------------+----------------+\n| +DirectedRelationshipTypeScan   |  6 | (x3)-[anon_1:P31]->(anon_2)                 |              3 |\n+---------------------------------+----+---------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1, x2, x3, x4",
+  "planner-version": "5.6",
+  "EstimatedRows": 0.0003372976781275678,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "anon_2",
+    "x3",
+    "anon_4",
+    "x2",
+    "anon_3",
+    "anon_5",
+    "x1",
+    "x4",
+    "anon_0",
+    "anon_1"
+  ],
+  "children": [
+    {
+      "operatorType": "CartesianProduct@neo4j",
+      "EstimatedRows": 0.0003372976781275678,
+      "Id": 1,
+      "identifiers": [
+        "anon_2",
+        "x3",
+        "anon_4",
+        "x2",
+        "anon_3",
+        "anon_5",
+        "x1",
+        "x4",
+        "anon_0",
+        "anon_1"
+      ],
+      "children": [
+        {
+          "operatorType": "Filter@neo4j",
+          "Details": "anon_4:Entity AND anon_4.id = $autostring_0",
+          "EstimatedRows": 0.00011243255937585592,
+          "Id": 3,
+          "identifiers": [
+            "anon_2",
+            "x3",
+            "anon_4",
+            "anon_1",
+            "anon_3",
+            "anon_5",
+            "x4"
+          ],
+          "children": [
+            {
+              "operatorType": "VarLengthExpand(All)@neo4j",
+              "Details": "(anon_2)-[anon_3:P279*0..]->(anon_4)",
+              "EstimatedRows": 0.004499100175916471,
+              "Id": 4,
+              "identifiers": [
+                "anon_2",
+                "x3",
+                "anon_4",
+                "anon_1",
+                "anon_3",
+                "anon_5",
+                "x4"
+              ],
+              "children": [
+                {
+                  "operatorType": "Expand(All)@neo4j",
+                  "Details": "(x3)-[anon_5:P22|P25|P40|P1038|P3373]->(x4)",
+                  "EstimatedRows": 0.004497751124437781,
+                  "Id": 5,
+                  "identifiers": [
+                    "anon_2",
+                    "x3",
+                    "anon_1",
+                    "anon_5",
+                    "x4"
+                  ],
+                  "children": [
+                    {
+                      "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                      "Details": "(x3)-[anon_1:P31]->(anon_2)",
+                      "EstimatedRows": 3.0,
+                      "Id": 6,
+                      "identifiers": [
+                        "anon_1",
+                        "x3",
+                        "anon_2"
+                      ],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "operatorType": "DirectedRelationshipTypeScan@neo4j",
+          "Details": "(x1)-[anon_0:P18]->(x2)",
+          "EstimatedRows": 0.00033729767812756774,
+          "Id": 2,
+          "identifiers": [
+            "anon_0",
+            "x1",
+            "x2"
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "explainVersion": "1",
+  "queryPlanner": {
+    "namespace": "ycsb.system.profile",
+    "indexFilterSet": false,
+    "parsedQuery": {},
+    "queryHash": "17830885",
+    "planCacheKey": "17830885",
+    "maxIndexedOrSolutionsReached": false,
+    "maxIndexedAndSolutionsReached": false,
+    "maxScansToExplodeReached": false,
+    "winningPlan": {
+      "stage": "COLLSCAN",
+      "direction": "forward"
+    },
+    "rejectedPlans": []
+  },
+  "executionStats": {
+    "executionSuccess": true,
+    "nReturned": 1182,
+    "executionTimeMillis": 0,
+    "totalKeysExamined": 0,
+    "totalDocsExamined": 1182,
+    "executionStages": {
+      "stage": "COLLSCAN",
+      "nReturned": 1182,
+      "executionTimeMillisEstimate": 0,
+      "works": 1184,
+      "advanced": 1182,
+      "needTime": 1,
+      "needYield": 0,
+      "saveState": 1,
+      "restoreState": 1,
+      "isEOF": 1,
+      "direction": "forward",
+      "docsExamined": 1182
+    },
+    "allPlansExecution": []
+  },
+  "command": {
+    "find": "system.profile",
+    "filter": {},
+    "$db": "ycsb"
+  },
+  "serverInfo": {
+    "host": "f34f9a9a0733",
+    "port": 27017,
+    "version": "6.0.5",
+    "gitVersion": "c9a99c120371d4d4c52cbb15dac34a36ce8d3b1d"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+  },
+  "ok": 1.0
+}

@@ -1,0 +1,51 @@
+Combinator->Sort
+row: 1.00
+	Projector->Project
+	row: 1.00
+		Folder->Aggregate Hash
+		row: 1.00
+			Projector->Project
+			row: 0.01
+				Projector->Project
+				row: 0.01
+					Join->Index Join
+					row: 0.01
+						Join->Index Join
+						row: 0.12
+							Join->Index Join
+							row: 0.10
+								Join->Hash Join
+								row: 0.08
+									Join->Index Hash
+									row: 0.06
+										Executor->Collect
+										row: 0.05
+											Producer->Full Table Scan
+											row: 25.00
+											name object: table:n1
+										Executor->Collect Order
+										row: 0.06
+											Producer->Index-only Scan Range
+											row: 0.06
+											name object: table:supplier, index:SUPPLIER_FK1(S_NATIONKEY)
+									Executor->Collect
+									row: 250.00
+										Producer->Full Table Scan
+										row: 10000.00
+										name object: table:lineitem
+								Executor->Collect
+								row: 0.08
+									Producer->Range Scan
+									row: 0.08
+									name object: table:orders
+							Executor->Collect
+							row: 0.10
+								Producer->Range Scan
+								row: 0.10
+								name object: table:customer
+						Executor->Collect
+						row: 0.00
+							Producer->Range Scan
+							row: 0.12
+							name object: table:n2
+

@@ -1,0 +1,21 @@
+Combinator->Sort
+	Folder->Group
+		Join->Nested Loop
+		row: 2009
+			Join->Nested Loop
+			row: 2009
+				Join->Nested Loop
+				row: 2009
+					Producer->Full Table Scan
+					row: 4966
+					name object: ORDERS
+					Producer->Index Scan
+					row: 2009
+					name object: LINEITEM
+				Producer->Index Scan
+				row: 2009
+				name object: CUSTOMER
+			Producer->Index Scan
+			row: 2009
+			name object: NATION
+

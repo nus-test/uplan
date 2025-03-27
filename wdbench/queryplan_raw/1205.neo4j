@@ -1,0 +1,53 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-----------------+----+--------------------------------------------------------+----------------+\n| Operator        | Id | Details                                                | Estimated Rows |\n+-----------------+----+--------------------------------------------------------+----------------+\n| +ProduceResults |  0 | `x1.id`, `x2.id`                                       |              0 |\n| |               +----+--------------------------------------------------------+----------------+\n| +Projection     |  1 | x1.id AS `x1.id`, x2.id AS `x2.id`                     |              0 |\n| |               +----+--------------------------------------------------------+----------------+\n| +Projection     |  2 | NULL AS x1, NULL AS anon_0, NULL AS anon_1, NULL AS x2 |              0 |\n| |               +----+--------------------------------------------------------+----------------+\n| +Limit          |  3 | 0                                                      |              0 |\n+-----------------+----+--------------------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "`x1.id`, `x2.id`",
+  "planner-version": "5.6",
+  "EstimatedRows": 0.0,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "`x1.id`",
+    "`x2.id`"
+  ],
+  "children": [
+    {
+      "operatorType": "Projection@neo4j",
+      "Details": "x1.id AS `x1.id`, x2.id AS `x2.id`",
+      "EstimatedRows": 0.0,
+      "Id": 1,
+      "identifiers": [
+        "`x1.id`",
+        "`x2.id`"
+      ],
+      "children": [
+        {
+          "operatorType": "Projection@neo4j",
+          "Details": "NULL AS x1, NULL AS anon_0, NULL AS anon_1, NULL AS x2",
+          "EstimatedRows": 0.0,
+          "Id": 2,
+          "identifiers": [
+            "x1",
+            "anon_0",
+            "anon_1",
+            "x2"
+          ],
+          "children": [
+            {
+              "operatorType": "Limit@neo4j",
+              "Details": "0",
+              "EstimatedRows": 0.0,
+              "Id": 3,
+              "identifiers": [],
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

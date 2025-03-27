@@ -1,0 +1,51 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Projector->Project",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "not anon_5 = anon_6 AND not anon_0 = anon_6 AND not anon_1 = anon_6 AND not anon_4 = anon_6 AND not anon_3 = anon_6 AND not anon_2 = anon_6 AND anon_7.id = $autostring_0 AND anon_7:Entity",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "not anon_0 = anon_1 AND not anon_0 = anon_3 AND not anon_0 = anon_2 AND not anon_0 = anon_4 AND not anon_0 = anon_5",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "not anon_1 = anon_2 AND not anon_1 = anon_3 AND not anon_1 = anon_4 AND not anon_1 = anon_5",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "Filter->filter": "not anon_2 = anon_5 AND not anon_3 = anon_5 AND not anon_4 = anon_5",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "Filter->filter": "not anon_2 = anon_4 AND not anon_3 = anon_4",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "Filter->filter": "not anon_2 = anon_3",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

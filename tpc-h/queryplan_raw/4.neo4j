@@ -1,0 +1,115 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "`order.O_ORDERPRIORITY`",
+      "ORDER_COUNT"
+    ],
+    "arguments": {
+      "Order": "`order.O_ORDERPRIORITY` ASC",
+      "planner-impl": "IDP",
+      "Details": "`order.O_ORDERPRIORITY`, ORDER_COUNT",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n| Operator                      | Id | Details                                                                                              | Estimated Rows | Ordered by                  |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n| +ProduceResults               |  0 | `order.O_ORDERPRIORITY`, ORDER_COUNT                                                                 |              0 |                             |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+                             |\n| +Sort                         |  1 | `order.O_ORDERPRIORITY` ASC                                                                          |              0 | `order.O_ORDERPRIORITY` ASC |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n| +EagerAggregation             |  2 | order.O_ORDERPRIORITY AS `order.O_ORDERPRIORITY`, count(*) AS ORDER_COUNT                            |              0 |                             |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n| +Filter                       |  3 | order:ORDER AND lineitem:LINEITEM AND date(cache[order.O_ORDERDATE]) >= date($autostring_2) AND date |              0 |                             |\n| |                             |    | (cache[order.O_ORDERDATE]) < date(my_date) AND date(lineitem.L_COMMITDATE) < date(lineitem.L_RECEIPT |                |                             |\n| |                             |    | DATE)                                                                                                |                |                             |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n| +Projection                   |  4 | date($autostring_0) + duration($autostring_1) AS my_date                                             |              3 |                             |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n| +DirectedRelationshipTypeScan |  5 | (lineitem)-[anon_0:IS_PART_OF]->(order)                                                              |              3 |                             |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+-----------------------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 0,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Sort@neo4j",
+        "identifiers": [
+          "`order.O_ORDERPRIORITY`",
+          "ORDER_COUNT"
+        ],
+        "arguments": {
+          "Order": "`order.O_ORDERPRIORITY` ASC",
+          "Details": "`order.O_ORDERPRIORITY` ASC",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 0
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "`order.O_ORDERPRIORITY`",
+              "ORDER_COUNT"
+            ],
+            "arguments": {
+              "Details": "order.O_ORDERPRIORITY AS `order.O_ORDERPRIORITY`, count(*) AS ORDER_COUNT",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 0
+            },
+            "children": [
+              {
+                "operatorType": "Filter@neo4j",
+                "identifiers": [
+                  "anon_0",
+                  "lineitem",
+                  "order",
+                  "my_date"
+                ],
+                "arguments": {
+                  "Details": "order:ORDER AND lineitem:LINEITEM AND date(cache[order.O_ORDERDATE]) >= date($autostring_2) AND date(cache[order.O_ORDERDATE]) < date(my_date) AND date(lineitem.L_COMMITDATE) < date(lineitem.L_RECEIPTDATE)",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0
+                },
+                "children": [
+                  {
+                    "operatorType": "Projection@neo4j",
+                    "identifiers": [
+                      "anon_0",
+                      "lineitem",
+                      "order",
+                      "my_date"
+                    ],
+                    "arguments": {
+                      "Details": "date($autostring_0) + duration($autostring_1) AS my_date",
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      },
+                      "EstimatedRows": 3
+                    },
+                    "children": [
+                      {
+                        "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                        "identifiers": [
+                          "anon_0",
+                          "lineitem",
+                          "order"
+                        ],
+                        "arguments": {
+                          "Details": "(lineitem)-[anon_0:IS_PART_OF]->(order)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 3
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

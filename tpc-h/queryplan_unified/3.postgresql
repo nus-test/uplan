@@ -1,0 +1,23 @@
+Combinator->Limit
+row: 10
+	Combinator->Sort
+	row: 9579
+		Folder->Aggregate
+		row: 9579
+			Join->Nested Loop
+			row: 9579
+				Join->Hash Join
+				row: 4394
+					Producer->Full Table Scan
+					row: 21851
+					name object: orders
+					Executor->Hash Row
+					row: 905
+						Producer->Full Table Scan
+						row: 905
+						name object: customer
+				Producer->Index Scan
+				row: 3
+				name object: lineitem
+
+time planning: 8.621

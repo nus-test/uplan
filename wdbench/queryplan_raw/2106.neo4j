@@ -1,0 +1,41 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+------------------------+----+---------------------------+----------------+\n| Operator               | Id | Details                   | Estimated Rows |\n+------------------------+----+---------------------------+----------------+\n| +ProduceResults        |  0 | x1                        |              0 |\n| |                      +----+---------------------------+----------------+\n| +VarLengthExpand(Into) |  1 | (x1)-[anon_0:P279*]->(x1) |              0 |\n| |                      +----+---------------------------+----------------+\n| +AllNodesScan          |  2 | x1                        |          10005 |\n+------------------------+----+---------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1",
+  "planner-version": "5.6",
+  "EstimatedRows": 0.0002999391120957273,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "x1",
+    "anon_0"
+  ],
+  "children": [
+    {
+      "operatorType": "VarLengthExpand(Into)@neo4j",
+      "Details": "(x1)-[anon_0:P279*]->(x1)",
+      "EstimatedRows": 0.0002999391120957273,
+      "Id": 1,
+      "identifiers": [
+        "x1",
+        "anon_0"
+      ],
+      "children": [
+        {
+          "operatorType": "AllNodesScan@neo4j",
+          "Details": "x1",
+          "EstimatedRows": 10005.0,
+          "Id": 2,
+          "identifiers": [
+            "x1"
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "`li.L_SHIPMODE`",
+      "high_line_count",
+      "low_line_count"
+    ],
+    "arguments": {
+      "Order": "`li.L_SHIPMODE` ASC",
+      "planner-impl": "IDP",
+      "Details": "`li.L_SHIPMODE`, high_line_count, low_line_count",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n| Operator          | Id | Details                                                                                              | Estimated Rows | Ordered by          |\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n| +ProduceResults   |  0 | `li.L_SHIPMODE`, high_line_count, low_line_count                                                     |              0 |                     |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+                     |\n| +Sort             |  1 | `li.L_SHIPMODE` ASC                                                                                  |              0 | `li.L_SHIPMODE` ASC |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n| +EagerAggregation |  2 | cache[li.L_SHIPMODE] AS `li.L_SHIPMODE`, sum(CASE WHEN cache[o.O_ORDERPRIORITY] IN $autolist_3 THEN  |              0 |                     |\n| |                 |    | $autoint_4 ELSE $autoint_5 END) AS high_line_count, sum(CASE WHEN cache[o.O_ORDERPRIORITY] IN $autol |                |                     |\n| |                 |    | ist_6 THEN $autoint_7 ELSE $autoint_8 END) AS low_line_count                                         |                |                     |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n| +Filter           |  3 | date(cache[li.L_RECEIPTDATE]) >= date($autostring_1) AND date(cache[li.L_COMMITDATE]) < date(cache[l |              0 |                     |\n| |                 |    | i.L_RECEIPTDATE]) AND toUpper(cache[li.L_SHIPMODE]) IN $autolist_0 AND li:LINEITEM AND date(li.L_SHI |                |                     |\n| |                 |    | PDATE) < date(cache[li.L_COMMITDATE]) AND date(cache[li.L_RECEIPTDATE]) < date($autostring_2)        |                |                     |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n| +Expand(All)      |  4 | (o)<-[anon_0:IS_PART_OF]-(li)                                                                        |              0 |                     |\n| |                 +----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n| +NodeByLabelScan  |  5 | o:ORDER                                                                                              |             10 |                     |\n+-------------------+----+------------------------------------------------------------------------------------------------------+----------------+---------------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 0,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Sort@neo4j",
+        "identifiers": [
+          "`li.L_SHIPMODE`",
+          "high_line_count",
+          "low_line_count"
+        ],
+        "arguments": {
+          "Order": "`li.L_SHIPMODE` ASC",
+          "Details": "`li.L_SHIPMODE` ASC",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 0
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "`li.L_SHIPMODE`",
+              "high_line_count",
+              "low_line_count"
+            ],
+            "arguments": {
+              "Details": "cache[li.L_SHIPMODE] AS `li.L_SHIPMODE`, sum(CASE WHEN cache[o.O_ORDERPRIORITY] IN $autolist_3 THEN $autoint_4 ELSE $autoint_5 END) AS high_line_count, sum(CASE WHEN cache[o.O_ORDERPRIORITY] IN $autolist_6 THEN $autoint_7 ELSE $autoint_8 END) AS low_line_count",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 0
+            },
+            "children": [
+              {
+                "operatorType": "Filter@neo4j",
+                "identifiers": [
+                  "o",
+                  "anon_0",
+                  "li"
+                ],
+                "arguments": {
+                  "Details": "date(cache[li.L_RECEIPTDATE]) >= date($autostring_1) AND date(cache[li.L_COMMITDATE]) < date(cache[li.L_RECEIPTDATE]) AND toUpper(cache[li.L_SHIPMODE]) IN $autolist_0 AND li:LINEITEM AND date(li.L_SHIPDATE) < date(cache[li.L_COMMITDATE]) AND date(cache[li.L_RECEIPTDATE]) < date($autostring_2)",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0
+                },
+                "children": [
+                  {
+                    "operatorType": "Expand(All)@neo4j",
+                    "identifiers": [
+                      "o",
+                      "anon_0",
+                      "li"
+                    ],
+                    "arguments": {
+                      "Details": "(o)<-[anon_0:IS_PART_OF]-(li)",
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      },
+                      "EstimatedRows": 0
+                    },
+                    "children": [
+                      {
+                        "operatorType": "NodeByLabelScan@neo4j",
+                        "identifiers": [
+                          "o"
+                        ],
+                        "arguments": {
+                          "Details": "o:ORDER",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 10
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

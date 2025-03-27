@@ -1,0 +1,298 @@
+EXPLAIN
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "1347.63"
+    },
+    "ordering_operation": {
+      "using_temporary_table": true,
+      "using_filesort": true,
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "REGION",
+            "access_type": "ALL",
+            "possible_keys": [
+              "PRIMARY"
+            ],
+            "rows_examined_per_scan": 5,
+            "rows_produced_per_join": 1,
+            "filtered": "20.00",
+            "cost_info": {
+              "read_cost": "1.40",
+              "eval_cost": "0.10",
+              "prefix_cost": "1.50",
+              "data_read_per_join": "720"
+            },
+            "used_columns": [
+              "R_REGIONKEY",
+              "R_NAME"
+            ],
+            "attached_condition": "(`tpch`.`REGION`.`R_NAME` = 'ASIA')"
+          }
+        },
+        {
+          "table": {
+            "table_name": "PART",
+            "access_type": "ALL",
+            "possible_keys": [
+              "PRIMARY"
+            ],
+            "rows_examined_per_scan": 5946,
+            "rows_produced_per_join": 66,
+            "filtered": "1.11",
+            "using_join_buffer": "hash join",
+            "cost_info": {
+              "read_cost": "685.27",
+              "eval_cost": "6.61",
+              "prefix_cost": "693.37",
+              "data_read_per_join": "39K"
+            },
+            "used_columns": [
+              "P_PARTKEY",
+              "P_MFGR",
+              "P_TYPE",
+              "P_SIZE"
+            ],
+            "attached_condition": "((`tpch`.`PART`.`P_SIZE` = 30) and (`tpch`.`PART`.`P_TYPE` like '%STEEL'))"
+          }
+        },
+        {
+          "table": {
+            "table_name": "PARTSUPP",
+            "access_type": "ref",
+            "possible_keys": [
+              "PRIMARY",
+              "PARTSUPP_FK1"
+            ],
+            "key": "PRIMARY",
+            "used_key_parts": [
+              "PS_PARTKEY"
+            ],
+            "key_length": "4",
+            "ref": [
+              "tpch.PART.P_PARTKEY"
+            ],
+            "rows_examined_per_scan": 3,
+            "rows_produced_per_join": 255,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "66.32",
+              "eval_cost": "25.56",
+              "prefix_cost": "785.26",
+              "data_read_per_join": "205K"
+            },
+            "used_columns": [
+              "PS_PARTKEY",
+              "PS_SUPPKEY",
+              "PS_SUPPLYCOST"
+            ],
+            "attached_condition": "(`tpch`.`PARTSUPP`.`PS_SUPPLYCOST` = (/* select#2 */ select min(`tpch`.`PARTSUPP`.`PS_SUPPLYCOST`) from `tpch`.`PARTSUPP` join `tpch`.`SUPPLIER` join `tpch`.`NATION` join `tpch`.`REGION` where ((`tpch`.`REGION`.`R_NAME` = 'ASIA') and (`tpch`.`NATION`.`N_REGIONKEY` = `tpch`.`REGION`.`R_REGIONKEY`) and (`tpch`.`NATION`.`N_NATIONKEY` = `tpch`.`SUPPLIER`.`S_NATIONKEY`) and (`tpch`.`SUPPLIER`.`S_SUPPKEY` = `tpch`.`PARTSUPP`.`PS_SUPPKEY`) and (`tpch`.`PART`.`P_PARTKEY` = `tpch`.`PARTSUPP`.`PS_PARTKEY`))))",
+            "attached_subqueries": [
+              {
+                "dependent": true,
+                "cacheable": false,
+                "query_block": {
+                  "select_id": 2,
+                  "cost_info": {
+                    "query_cost": "11.40"
+                  },
+                  "nested_loop": [
+                    {
+                      "table": {
+                        "table_name": "REGION",
+                        "access_type": "ALL",
+                        "possible_keys": [
+                          "PRIMARY"
+                        ],
+                        "rows_examined_per_scan": 5,
+                        "rows_produced_per_join": 1,
+                        "filtered": "20.00",
+                        "cost_info": {
+                          "read_cost": "1.40",
+                          "eval_cost": "0.10",
+                          "prefix_cost": "1.50",
+                          "data_read_per_join": "720"
+                        },
+                        "used_columns": [
+                          "R_REGIONKEY",
+                          "R_NAME"
+                        ],
+                        "attached_condition": "(`tpch`.`REGION`.`R_NAME` = 'ASIA')"
+                      }
+                    },
+                    {
+                      "table": {
+                        "table_name": "PARTSUPP",
+                        "access_type": "ref",
+                        "possible_keys": [
+                          "PRIMARY",
+                          "PARTSUPP_FK1"
+                        ],
+                        "key": "PRIMARY",
+                        "used_key_parts": [
+                          "PS_PARTKEY"
+                        ],
+                        "key_length": "4",
+                        "ref": [
+                          "tpch.PART.P_PARTKEY"
+                        ],
+                        "rows_examined_per_scan": 3,
+                        "rows_produced_per_join": 3,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "1.00",
+                          "eval_cost": "0.39",
+                          "prefix_cost": "2.89",
+                          "data_read_per_join": "3K"
+                        },
+                        "used_columns": [
+                          "PS_PARTKEY",
+                          "PS_SUPPKEY",
+                          "PS_SUPPLYCOST"
+                        ]
+                      }
+                    },
+                    {
+                      "table": {
+                        "table_name": "SUPPLIER",
+                        "access_type": "eq_ref",
+                        "possible_keys": [
+                          "PRIMARY",
+                          "SUPPLIER_FK1"
+                        ],
+                        "key": "PRIMARY",
+                        "used_key_parts": [
+                          "S_SUPPKEY"
+                        ],
+                        "key_length": "4",
+                        "ref": [
+                          "tpch.PARTSUPP.PS_SUPPKEY"
+                        ],
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 3,
+                        "filtered": "100.00",
+                        "cost_info": {
+                          "read_cost": "3.87",
+                          "eval_cost": "0.39",
+                          "prefix_cost": "7.15",
+                          "data_read_per_join": "2K"
+                        },
+                        "used_columns": [
+                          "S_SUPPKEY",
+                          "S_NATIONKEY"
+                        ]
+                      }
+                    },
+                    {
+                      "table": {
+                        "table_name": "NATION",
+                        "access_type": "eq_ref",
+                        "possible_keys": [
+                          "PRIMARY",
+                          "NATION_FK1"
+                        ],
+                        "key": "PRIMARY",
+                        "used_key_parts": [
+                          "N_NATIONKEY"
+                        ],
+                        "key_length": "4",
+                        "ref": [
+                          "tpch.SUPPLIER.S_NATIONKEY"
+                        ],
+                        "rows_examined_per_scan": 1,
+                        "rows_produced_per_join": 0,
+                        "filtered": "20.00",
+                        "cost_info": {
+                          "read_cost": "3.87",
+                          "eval_cost": "0.08",
+                          "prefix_cost": "11.40",
+                          "data_read_per_join": "557"
+                        },
+                        "used_columns": [
+                          "N_NATIONKEY",
+                          "N_REGIONKEY"
+                        ],
+                        "attached_condition": "(`tpch`.`NATION`.`N_REGIONKEY` = `tpch`.`REGION`.`R_REGIONKEY`)"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "table": {
+            "table_name": "SUPPLIER",
+            "access_type": "eq_ref",
+            "possible_keys": [
+              "PRIMARY",
+              "SUPPLIER_FK1"
+            ],
+            "key": "PRIMARY",
+            "used_key_parts": [
+              "S_SUPPKEY"
+            ],
+            "key_length": "4",
+            "ref": [
+              "tpch.PARTSUPP.PS_SUPPKEY"
+            ],
+            "rows_examined_per_scan": 1,
+            "rows_produced_per_join": 255,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "255.62",
+              "eval_cost": "25.56",
+              "prefix_cost": "1066.44",
+              "data_read_per_join": "185K"
+            },
+            "used_columns": [
+              "S_SUPPKEY",
+              "S_NAME",
+              "S_ADDRESS",
+              "S_NATIONKEY",
+              "S_PHONE",
+              "S_ACCTBAL",
+              "S_COMMENT"
+            ]
+          }
+        },
+        {
+          "table": {
+            "table_name": "NATION",
+            "access_type": "eq_ref",
+            "possible_keys": [
+              "PRIMARY",
+              "NATION_FK1"
+            ],
+            "key": "PRIMARY",
+            "used_key_parts": [
+              "N_NATIONKEY"
+            ],
+            "key_length": "4",
+            "ref": [
+              "tpch.SUPPLIER.S_NATIONKEY"
+            ],
+            "rows_examined_per_scan": 1,
+            "rows_produced_per_join": 51,
+            "filtered": "20.00",
+            "cost_info": {
+              "read_cost": "255.62",
+              "eval_cost": "5.11",
+              "prefix_cost": "1347.63",
+              "data_read_per_join": "35K"
+            },
+            "used_columns": [
+              "N_NATIONKEY",
+              "N_NAME",
+              "N_REGIONKEY"
+            ],
+            "attached_condition": "(`tpch`.`NATION`.`N_REGIONKEY` = `tpch`.`REGION`.`R_REGIONKEY`)"
+          }
+        }
+      ]
+    }
+  }
+}

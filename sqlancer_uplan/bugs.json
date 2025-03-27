@@ -1,0 +1,242 @@
+[
+    {
+        "url": "anonymized",
+        "title": "Unexpected Result for an Index",
+        "reported_by": "QPG",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE t0(c0 INT, c1 INT);",
+            "INSERT INTO t0(c1, c0) VALUES(0, 1);",
+            "SELECT * FROM t0 WHERE t0.c1 IN (GREATEST(0.1, 0.2)); -- empty result",
+            "CREATE INDEX i0 ON t0(c1);",
+            "SELECT * FROM t0 WHERE t0.c1 IN (GREATEST(0.1, 0.2)); -- {1|0}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Result for LEAST function",
+        "reported_by": "QPG",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE t0(c0 LONGTEXT);",
+            "INSERT INTO t0(c0) VALUES(0.1);",
+            "CREATE TABLE t1(c0 INT ZEROFILL PRIMARY KEY);",
+            "INSERT IGNORE INTO t1(c0) VALUES(NULL);   ",
+            "SELECT !((LEAST(t0.c0, t1.c0)) || (t1.c0)) FROM t1, t0; -- {0}",
+            "SELECT * FROM t1, t0 WHERE !((LEAST(t0.c0, t1.c0)) || (t1.c0)); -- {0000000000, 0.1}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Result by IF",
+        "reported_by": "QPG",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE t0(c0 INT);",
+            "INSERT INTO t0(c0) VALUES(0.1);",
+            "CREATE INDEX i0 ON t0(c0);",
+            "SELECT NOT (t0.c0 != IF(NULL, NULL, 0.2)) FROM t0; -- {false}",
+            "SELECT t0.c0 FROM t0 WHERE NOT (t0.c0 != IF(NULL, NULL, 0.2)); -- {0}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Results by COALESCE",
+        "reported_by": "QPG",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE t0(c0 INT ZEROFILL NULL);",
+            "CREATE INDEX i0 USING BTREE ON t0;",
+            "CREATE INDEX i1 USING BTREE ON t0(c0 DESC);",
+            "INSERT IGNORE INTO t0(c0) VALUES(-1);",
+            "SELECT t0.c0 AS ref0 FROM t0; -- {0000000000}",
+            "SELECT ALL t0.c0 AS ref0 FROM t0 WHERE COALESCE(0.1, 0.3) != t0.c0; -- {0000000000}",
+            "SELECT t0.c0 AS ref0 FROM t0 WHERE NOT (COALESCE(0.1, 0.3) != t0.c0); -- {0000000000}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Results by Minus Sign",
+        "reported_by": "QPG",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE t0(c0 FLOAT) ;",
+            "INSERT INTO t0(c0) VALUES(0.1);",
+            "CREATE INDEX i0 ON t0((CAST(-t0.c0 AS SIGNED)));",
+            "SELECT t0.c0 FROM t0; -- {0.1}",
+            "SELECT t0.c0 FROM t0 WHERE -t0.c0; -- {0.1}",
+            "SELECT t0.c0 FROM t0 WHERE NOT -t0.c0; -- {0.1}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Results by MEMORY ENGINE",
+        "reported_by": "QPG",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE t0(c0 DOUBLE ZEROFILL, c1 FLOAT UNIQUE NOT NULL STORAGE DISK) ENGINE = MEMORY;",
+            "CREATE TABLE t1(c0 DECIMAL);",
+            "INSERT INTO t0(c1) VALUES(1), ('b');",
+            "INSERT INTO t1(c0) VALUES(2);",
+            "SELECT (t0.c1 = - 'a') FROM t0, t1; -- {0}, {1}",
+            "SELECT * FROM t0, t1 WHERE (t0.c1 = - 'a'); -- empty set"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Cardinality by Index",
+        "reported_by": "CERT",
+        "system": "MySQL",
+        "test": [
+            "CREATE TABLE IF NOT EXISTS t0(c0 FLOAT, c1 DOUBLE);",
+            "CREATE INDEX i0 ON t0(c0);",
+            "INSERT INTO t0(c0) VALUES(''), (1), (2), (3), (4), (5), (6), (7), (8), (9);",
+            "INSERT INTO t0(c0) VALUES(NULL);",
+            "INSERT INTO t0(c0) VALUES(10), (NULL);",
+            "INSERT INTO t0(c0) VALUES(NULL), (11), (12);",
+            "INSERT INTO t0(c0) VALUES(13);",
+            "INSERT INTO t0(c0) VALUES(NULL);",
+            "ANALYZE TABLE t0 UPDATE HISTOGRAM ON c0;",
+            "EXPLAIN FORMAT=JSON SELECT t0.c0 FROM t0; -- rows_examined_per_scan: 3, rows_produced_per_join: 3",
+            "EXPLAIN FORMAT=JSON SELECT t0.c0 FROM t0 WHERE (t0.c0) IS NULL; -- rows_examined_per_scan: 4, rows_produced_per_join: 4"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Suspicious Estimated Number of Returned Rows",
+        "reported_by": "CERT",
+        "system": "PostgreSQL",
+        "test": [
+            "CREATE TABLE t0(c0 INT);",
+            "EXPLAIN SELECT * FROM t0 WHERE t0.c0 IN (t0.c0); --2537",
+            "EXPLAIN SELECT * FROM t0 WHERE (t0.c0 IN (t0.c0))OR(t0.c0 > 0); --858"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Result by REGEXP",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT);",
+            "CREATE TABLE t1(c0 INT);",
+            "INSERT INTO t0 VALUES (1), (2);",
+            "INSERT INTO t1 VALUES (3);",
+            "CREATE VIEW v0(c0, c1) AS SELECT t0.c0, (false NOT REGEXP t1.c0) LIKE 0 FROM t1, t0 GROUP BY t1.c0;",
+            "SELECT v0.c0 FROM v0; -- {2}",
+            "SELECT v0.c0 FROM v0 WHERE NOT v0.c1; -- {1}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Result by NATURAL RIGHT JOIN",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT);",
+            "CREATE TABLE t1(c0 FLOAT);",
+            "INSERT IGNORE INTO t0(c0) VALUES (1);",
+            "INSERT INTO t1 VALUES (2);",
+            "CREATE VIEW v1(c0) AS SELECT 'a' FROM t1;",
+            "SELECT t0.c0 = (t1.c0 NOT LIKE FALSE) FROM t1, t0 NATURAL RIGHT JOIN v1; -- {NULL}",
+            "SELECT * FROM t1, t0 NATURAL RIGHT JOIN v1 WHERE t0.c0 = (t1.c0 NOT LIKE FALSE); -- {NULL|a}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "runtime error: index out of range [320] with length 320",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 NUMERIC);",
+            "CREATE TABLE t1(c0 NUMERIC);",
+            "INSERT INTO t0 VALUES (0), (NULL), (1), (2);",
+            "INSERT INTO t1(c0) VALUES (NULL), (3), (4), (5);",
+            "CREATE VIEW v0(c0) AS SELECT t0.c0 FROM t0;",
+            "SELECT t0.c0 FROM v0, t0 LEFT JOIN t1 ON t0.c0 WHERE ((INET_ATON('5V')) IS NULL); -- runtime error: index out of range [320] with length 320"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "errors in results with 4 cartesian products + only true filter",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT , c2 INT DEFAULT 1);",
+            "INSERT INTO t0(c0) VALUES (2), (3), (4);",
+            "CREATE VIEW v0(c0) AS SELECT 5 FROM t0;",
+            "CREATE VIEW v1(c0) AS SELECT 6 FROM t0;",
+            "CREATE VIEW v2(c0) AS SELECT false FROM v0, t0;",
+            "SELECT SUM(v2.c0) FROM v2, t0, v0, v1; -- {0}",
+            "SELECT SUM(v2.c0) FROM v2, t0, v0, v1 WHERE INET6_ATON(7) IS NULL; -- {486}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Result by FIELD Function",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT);",
+            "CREATE TABLE t1(c0 BOOL);",
+            "INSERT t0 VALUES (0.1);",
+            "SELECT FIELD(t0.c0, t1.c0, 'a') IS TRUE FROM t0 LEFT JOIN t1 ON 1; -- {true}",
+            "SELECT t0.c0 FROM  t0 LEFT OUTER JOIN t1 ON 1 WHERE FIELD(t0.c0, t1.c0, 'a'); -- empty set"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Results by NATURE RIGHT JOIN",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT ZEROFILL);",
+            "CREATE TABLE t1(c0 INT ZEROFILL);",
+            "INSERT IGNORE INTO t0 VALUES (-1);",
+            "INSERT IGNORE INTO t1 VALUES (-2);",
+            "SELECT t1.c0 FROM  t1 NATURAL RIGHT JOIN t0; -- {0}",
+            "SELECT t1.c0 FROM  t1 NATURAL RIGHT JOIN t0 WHERE IS_IPV4(t0.c0) REGEXP CONCAT_WS('a', FALSE, t1.c0); -- {NULL}"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Results by LEFT JOIN",
+        "reported_by": "QPG",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT UNSIGNED, c1 INT UNSIGNED, c2 BOOL);",
+            "CREATE TABLE t1 LIKE t0;",
+            "INSERT IGNORE INTO t0 VALUES (1, -2, true);",
+            "SELECT FIELD(t0.c1, '', t1.c1, 2) FROM t0 LEFT JOIN t1 ON t0.c0; -- {1}",
+            "SELECT * FROM t0 LEFT JOIN t1 ON t0.c0 WHERE FIELD(t0.c1, '', t1.c1, 2); -- empty set"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Estimated Cardinality by WHERE Predicate",
+        "reported_by": "CERT",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 INT, c1 INT);",
+            "CREATE TABLE t1 LIKE t0;",
+            "INSERT INTO t0 VALUES (1, 2), (3, 4), (5, 6);",
+            "INSERT INTO t1 VALUES (11, 12), (13, 14), (15, 16);",
+            "ANALYZE TABLE t0;",
+            "EXPLAIN SELECT * FROM t1 LEFT JOIN t0 ON (true) WHERE true; -- estRows=30,000",
+            "EXPLAIN SELECT * FROM t1 LEFT JOIN t0 ON (true) WHERE true OR t0.c1; -- estRows=24,000"
+        ]
+    },
+    {
+        "url": "anonymized",
+        "title": "Unexpected Estimated Rows by GROUP BY",
+        "reported_by": "CERT",
+        "system": "TiDB",
+        "test": [
+            "CREATE TABLE t0(c0 BLOB);",
+            "INSERT INTO t0(c0) VALUES (NULL), (NULL);",
+            "ANALYZE TABLE t0;",
+            "EXPLAIN SELECT t0.c0 FROM t0 WHERE ((t0.c0)LIKE(0.1)); -- estRows=0.00",
+            "EXPLAIN SELECT t0.c0 FROM t0 WHERE ((t0.c0)LIKE(0.1)) GROUP BY t0.c0; -- estRows=1.00"
+        ]
+    }
+]

@@ -1,0 +1,194 @@
+EXPLAIN
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "1936.58"
+    },
+    "ordering_operation": {
+      "using_temporary_table": true,
+      "using_filesort": true,
+      "cost_info": {
+        "sort_cost": "30.00"
+      },
+      "nested_loop": [
+        {
+          "table": {
+            "table_name": "NATION",
+            "access_type": "ALL",
+            "possible_keys": [
+              "PRIMARY"
+            ],
+            "rows_examined_per_scan": 25,
+            "rows_produced_per_join": 2,
+            "filtered": "10.00",
+            "cost_info": {
+              "read_cost": "3.25",
+              "eval_cost": "0.25",
+              "prefix_cost": "3.50",
+              "data_read_per_join": "1K"
+            },
+            "used_columns": [
+              "N_NATIONKEY",
+              "N_NAME"
+            ],
+            "attached_condition": "(`tpch`.`NATION`.`N_NAME` = 'ALGERIA')"
+          }
+        },
+        {
+          "table": {
+            "table_name": "SUPPLIER",
+            "access_type": "ref",
+            "possible_keys": [
+              "PRIMARY",
+              "SUPPLIER_FK1"
+            ],
+            "key": "SUPPLIER_FK1",
+            "used_key_parts": [
+              "S_NATIONKEY"
+            ],
+            "key_length": "4",
+            "ref": [
+              "tpch.NATION.N_NATIONKEY"
+            ],
+            "rows_examined_per_scan": 12,
+            "rows_produced_per_join": 30,
+            "filtered": "100.00",
+            "cost_info": {
+              "read_cost": "30.00",
+              "eval_cost": "3.00",
+              "prefix_cost": "36.50",
+              "data_read_per_join": "21K"
+            },
+            "used_columns": [
+              "S_SUPPKEY",
+              "S_NAME",
+              "S_ADDRESS",
+              "S_NATIONKEY"
+            ]
+          }
+        },
+        {
+          "table": {
+            "table_name": "<subquery2>",
+            "access_type": "eq_ref",
+            "key": "<auto_distinct_key>",
+            "key_length": "4",
+            "ref": [
+              "tpch.SUPPLIER.S_SUPPKEY"
+            ],
+            "rows_examined_per_scan": 1,
+            "materialized_from_subquery": {
+              "using_temporary_table": true,
+              "query_block": {
+                "nested_loop": [
+                  {
+                    "table": {
+                      "table_name": "PART",
+                      "access_type": "ALL",
+                      "possible_keys": [
+                        "PRIMARY"
+                      ],
+                      "rows_examined_per_scan": 5946,
+                      "rows_produced_per_join": 660,
+                      "filtered": "11.11",
+                      "cost_info": {
+                        "read_cost": "625.54",
+                        "eval_cost": "66.06",
+                        "prefix_cost": "691.60",
+                        "data_read_per_join": "397K"
+                      },
+                      "used_columns": [
+                        "P_PARTKEY",
+                        "P_NAME"
+                      ],
+                      "attached_condition": "(`tpch`.`PART`.`P_NAME` like 'green%')"
+                    }
+                  },
+                  {
+                    "table": {
+                      "table_name": "PARTSUPP",
+                      "access_type": "ref",
+                      "possible_keys": [
+                        "PRIMARY",
+                        "PARTSUPP_FK1"
+                      ],
+                      "key": "PRIMARY",
+                      "used_key_parts": [
+                        "PS_PARTKEY"
+                      ],
+                      "key_length": "4",
+                      "ref": [
+                        "tpch.PART.P_PARTKEY"
+                      ],
+                      "rows_examined_per_scan": 3,
+                      "rows_produced_per_join": 2556,
+                      "filtered": "100.00",
+                      "cost_info": {
+                        "read_cost": "663.23",
+                        "eval_cost": "255.62",
+                        "prefix_cost": "1610.46",
+                        "data_read_per_join": "2M"
+                      },
+                      "used_columns": [
+                        "PS_PARTKEY",
+                        "PS_SUPPKEY",
+                        "PS_AVAILQTY"
+                      ],
+                      "attached_condition": "(`tpch`.`PARTSUPP`.`PS_AVAILQTY` > (/* select#4 */ select (0.5 * sum(`tpch`.`LINEITEM`.`L_QUANTITY`)) from `tpch`.`LINEITEM` where ((`tpch`.`LINEITEM`.`L_PARTKEY` = `tpch`.`PARTSUPP`.`PS_PARTKEY`) and (`tpch`.`LINEITEM`.`L_SUPPKEY` = `tpch`.`PARTSUPP`.`PS_SUPPKEY`) and (`tpch`.`LINEITEM`.`L_SHIPDATE` >= DATE'1993-01-01') and (`tpch`.`LINEITEM`.`L_SHIPDATE` < <cache>((DATE'1993-01-01' + interval '1' year))))))",
+                      "attached_subqueries": [
+                        {
+                          "dependent": true,
+                          "cacheable": false,
+                          "query_block": {
+                            "select_id": 4,
+                            "cost_info": {
+                              "query_cost": "2.58"
+                            },
+                            "table": {
+                              "table_name": "LINEITEM",
+                              "access_type": "ref",
+                              "possible_keys": [
+                                "LINEITEM_FK2"
+                              ],
+                              "key": "LINEITEM_FK2",
+                              "used_key_parts": [
+                                "L_PARTKEY",
+                                "L_SUPPKEY"
+                              ],
+                              "key_length": "8",
+                              "ref": [
+                                "tpch.PARTSUPP.PS_PARTKEY",
+                                "tpch.PARTSUPP.PS_SUPPKEY"
+                              ],
+                              "rows_examined_per_scan": 7,
+                              "rows_produced_per_join": 0,
+                              "filtered": "11.11",
+                              "cost_info": {
+                                "read_cost": "1.84",
+                                "eval_cost": "0.08",
+                                "prefix_cost": "2.58",
+                                "data_read_per_join": "314"
+                              },
+                              "used_columns": [
+                                "L_PARTKEY",
+                                "L_SUPPKEY",
+                                "L_QUANTITY",
+                                "L_SHIPDATE"
+                              ],
+                              "attached_condition": "((`tpch`.`LINEITEM`.`L_SHIPDATE` >= DATE'1993-01-01') and (`tpch`.`LINEITEM`.`L_SHIPDATE` < <cache>((DATE'1993-01-01' + interval '1' year))))"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

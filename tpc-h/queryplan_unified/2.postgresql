@@ -1,0 +1,59 @@
+Combinator->Limit
+row: 1
+	Combinator->Sort
+	row: 1
+		Join->Hash Join
+		row: 1
+			Producer->Full Table Scan
+			row: 22
+			name object: part
+			Executor->Hash Row
+			row: 4800
+				Join->Hash Join
+				row: 4800
+					Producer->Full Table Scan
+					row: 24000
+					name object: partsupp
+					Executor->Hash Row
+					row: 60
+						Join->Hash Join
+						row: 60
+							Producer->Full Table Scan
+							row: 300
+							name object: supplier
+							Executor->Hash Row
+							row: 5
+								Join->Hash Join
+								row: 5
+									Producer->Full Table Scan
+									row: 25
+									name object: nation
+									Executor->Hash Row
+									row: 1
+										Producer->Full Table Scan
+										row: 1
+										name object: region
+			Folder->Aggregate
+			row: 1
+				Join->Nested Loop
+				row: 1
+					Producer->Full Table Scan
+					row: 1
+					name object: region
+					Join->Nested Loop
+					row: 4
+						Join->Hash Join
+						row: 4
+							Producer->Full Table Scan
+							row: 300
+							name object: supplier
+							Executor->Hash Row
+							row: 4
+								Producer->Index Scan
+								row: 4
+								name object: partsupp
+						Producer->Index Scan
+						row: 1
+						name object: nation
+
+time planning: 21.336

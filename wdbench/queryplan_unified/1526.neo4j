@@ -1,0 +1,48 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Nested Loop",
+                "children": [
+                    {
+                        "Operation": "Join->Relation",
+                        "Filter->filter": "anon_1.id = $autostring_0 AND anon_1:Entity"
+                    },
+                    {
+                        "Operation": "Producer->Constant",
+                        "children": [
+                            {
+                                "Operation": "Join->CartesianProduct",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Executor->Argument"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "anon_4.id = $autostring_1 AND anon_4:Entity"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

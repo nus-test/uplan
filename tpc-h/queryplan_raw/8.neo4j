@@ -1,0 +1,478 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "o_year",
+      "`sum(CASE WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`"
+    ],
+    "arguments": {
+      "Order": "o_year ASC",
+      "planner-impl": "IDP",
+      "Details": "o_year, `sum(CASE WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| Operator                      | Id | Details                                                                                              | Estimated Rows | Ordered by |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +ProduceResults               |  0 | o_year, `sum(CASE WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`                          |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+            |\n| +Sort                         |  1 | o_year ASC                                                                                           |              0 | o_year ASC |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +EagerAggregation             |  2 | o_year, sum(CASE WHEN cache[n2.N_NAME] = $autostring_5 THEN volume ELSE $autoint_6 END) AS `sum(CASE |              0 |            |\n| |                             |    | WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`                                            |                |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +EagerAggregation             |  3 | n2, cache[n2.N_NAME] AS nation, li, date(cache[o.O_ORDERDATE]) AS o_year, o, sum(cache[li.L_EXTENDED |              0 |            |\n| |                             |    | PRICE] * ($autoint_4 - tofloat(cache[li.L_DISCOUNT]))) AS volume                                     |                |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +CacheProperties              |  4 | cache[li.L_DISCOUNT], cache[li.L_EXTENDEDPRICE]                                                      |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(Into)                 |  5 | (n2)-[anon_6:IS_FROM]->(r)                                                                           |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       |  6 | p.P_TYPE = $autostring_3 AND p:PART                                                                  |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(All)                  |  7 | (li)-[anon_0:COMPOSED_BY]->(p)                                                                       |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       |  8 | r:REGION AND r.R_NAME = $autostring_0                                                                |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(All)                  |  9 | (n1)-[anon_7:IS_FROM]->(r)                                                                           |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       | 10 | n2:NATION                                                                                            |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(All)                  | 11 | (s)-[anon_2:BELONG_TO]->(n2)                                                                         |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       | 12 | s:SUPPLIER                                                                                           |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(All)                  | 13 | (li)-[anon_1:SUPPLIED_BY]->(s)                                                                       |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       | 14 | li:LINEITEM                                                                                          |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(All)                  | 15 | (o)<-[anon_3:IS_PART_OF]-(li)                                                                        |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       | 16 | o:ORDER AND date(cache[o.O_ORDERDATE]) > date($autostring_1) AND date(cache[o.O_ORDERDATE]) < date($ |              0 |            |\n| |                             |    | autostring_2)                                                                                        |                |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Expand(All)                  | 17 | (c)<-[anon_4:MADE_BY]-(o)                                                                            |              0 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +Filter                       | 18 | n1:NATION AND c:CUSTOMER                                                                             |              3 |            |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+------------+\n| +DirectedRelationshipTypeScan | 19 | (c)-[anon_5:BELONG_TO]->(n1)                                                                         |              3 |            |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 0,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Sort@neo4j",
+        "identifiers": [
+          "o_year",
+          "`sum(CASE WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`"
+        ],
+        "arguments": {
+          "Order": "o_year ASC",
+          "Details": "o_year ASC",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 0
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "o_year",
+              "`sum(CASE WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`"
+            ],
+            "arguments": {
+              "Details": "o_year, sum(CASE WHEN cache[n2.N_NAME] = $autostring_5 THEN volume ELSE $autoint_6 END) AS `sum(CASE WHEN n2.N_NAME = 'INDIA'     THEN volume     ELSE 0 END)`",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 0
+            },
+            "children": [
+              {
+                "operatorType": "EagerAggregation@neo4j",
+                "identifiers": [
+                  "n2",
+                  "nation",
+                  "li",
+                  "o_year",
+                  "volume",
+                  "o"
+                ],
+                "arguments": {
+                  "Details": "n2, cache[n2.N_NAME] AS nation, li, date(cache[o.O_ORDERDATE]) AS o_year, o, sum(cache[li.L_EXTENDEDPRICE] * ($autoint_4 - tofloat(cache[li.L_DISCOUNT]))) AS volume",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0
+                },
+                "children": [
+                  {
+                    "operatorType": "CacheProperties@neo4j",
+                    "identifiers": [
+                      "anon_2",
+                      "li",
+                      "n1",
+                      "anon_4",
+                      "anon_7",
+                      "anon_3",
+                      "anon_5",
+                      "p",
+                      "anon_6",
+                      "c",
+                      "r",
+                      "o",
+                      "s",
+                      "n2",
+                      "anon_0",
+                      "anon_1"
+                    ],
+                    "arguments": {
+                      "Details": "cache[li.L_DISCOUNT], cache[li.L_EXTENDEDPRICE]",
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      },
+                      "EstimatedRows": 0
+                    },
+                    "children": [
+                      {
+                        "operatorType": "Expand(Into)@neo4j",
+                        "identifiers": [
+                          "anon_2",
+                          "li",
+                          "n1",
+                          "anon_4",
+                          "anon_7",
+                          "anon_3",
+                          "anon_5",
+                          "p",
+                          "anon_6",
+                          "c",
+                          "r",
+                          "o",
+                          "s",
+                          "n2",
+                          "anon_0",
+                          "anon_1"
+                        ],
+                        "arguments": {
+                          "Details": "(n2)-[anon_6:IS_FROM]->(r)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 0
+                        },
+                        "children": [
+                          {
+                            "operatorType": "Filter@neo4j",
+                            "identifiers": [
+                              "anon_2",
+                              "li",
+                              "n1",
+                              "anon_4",
+                              "anon_7",
+                              "anon_3",
+                              "anon_5",
+                              "p",
+                              "c",
+                              "r",
+                              "o",
+                              "s",
+                              "n2",
+                              "anon_0",
+                              "anon_1"
+                            ],
+                            "arguments": {
+                              "Details": "p.P_TYPE = $autostring_3 AND p:PART",
+                              "Id": {
+                                "low": 6,
+                                "high": 0
+                              },
+                              "EstimatedRows": 0
+                            },
+                            "children": [
+                              {
+                                "operatorType": "Expand(All)@neo4j",
+                                "identifiers": [
+                                  "anon_2",
+                                  "li",
+                                  "n1",
+                                  "anon_4",
+                                  "anon_7",
+                                  "anon_3",
+                                  "anon_5",
+                                  "p",
+                                  "c",
+                                  "r",
+                                  "o",
+                                  "s",
+                                  "n2",
+                                  "anon_0",
+                                  "anon_1"
+                                ],
+                                "arguments": {
+                                  "Details": "(li)-[anon_0:COMPOSED_BY]->(p)",
+                                  "Id": {
+                                    "low": 7,
+                                    "high": 0
+                                  },
+                                  "EstimatedRows": 0
+                                },
+                                "children": [
+                                  {
+                                    "operatorType": "Filter@neo4j",
+                                    "identifiers": [
+                                      "anon_2",
+                                      "li",
+                                      "n1",
+                                      "anon_4",
+                                      "anon_7",
+                                      "anon_1",
+                                      "anon_3",
+                                      "anon_5",
+                                      "c",
+                                      "r",
+                                      "o",
+                                      "s",
+                                      "n2"
+                                    ],
+                                    "arguments": {
+                                      "Details": "r:REGION AND r.R_NAME = $autostring_0",
+                                      "Id": {
+                                        "low": 8,
+                                        "high": 0
+                                      },
+                                      "EstimatedRows": 0
+                                    },
+                                    "children": [
+                                      {
+                                        "operatorType": "Expand(All)@neo4j",
+                                        "identifiers": [
+                                          "anon_2",
+                                          "li",
+                                          "n1",
+                                          "anon_4",
+                                          "anon_7",
+                                          "anon_1",
+                                          "anon_3",
+                                          "anon_5",
+                                          "c",
+                                          "r",
+                                          "o",
+                                          "s",
+                                          "n2"
+                                        ],
+                                        "arguments": {
+                                          "Details": "(n1)-[anon_7:IS_FROM]->(r)",
+                                          "Id": {
+                                            "low": 9,
+                                            "high": 0
+                                          },
+                                          "EstimatedRows": 0
+                                        },
+                                        "children": [
+                                          {
+                                            "operatorType": "Filter@neo4j",
+                                            "identifiers": [
+                                              "anon_2",
+                                              "li",
+                                              "n1",
+                                              "anon_4",
+                                              "anon_1",
+                                              "anon_3",
+                                              "anon_5",
+                                              "c",
+                                              "o",
+                                              "s",
+                                              "n2"
+                                            ],
+                                            "arguments": {
+                                              "Details": "n2:NATION",
+                                              "Id": {
+                                                "low": 10,
+                                                "high": 0
+                                              },
+                                              "EstimatedRows": 0
+                                            },
+                                            "children": [
+                                              {
+                                                "operatorType": "Expand(All)@neo4j",
+                                                "identifiers": [
+                                                  "anon_2",
+                                                  "li",
+                                                  "n1",
+                                                  "anon_4",
+                                                  "anon_1",
+                                                  "anon_3",
+                                                  "anon_5",
+                                                  "c",
+                                                  "o",
+                                                  "s",
+                                                  "n2"
+                                                ],
+                                                "arguments": {
+                                                  "Details": "(s)-[anon_2:BELONG_TO]->(n2)",
+                                                  "Id": {
+                                                    "low": 11,
+                                                    "high": 0
+                                                  },
+                                                  "EstimatedRows": 0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "operatorType": "Filter@neo4j",
+                                                    "identifiers": [
+                                                      "s",
+                                                      "li",
+                                                      "n1",
+                                                      "anon_4",
+                                                      "anon_1",
+                                                      "anon_3",
+                                                      "anon_5",
+                                                      "c",
+                                                      "o"
+                                                    ],
+                                                    "arguments": {
+                                                      "Details": "s:SUPPLIER",
+                                                      "Id": {
+                                                        "low": 12,
+                                                        "high": 0
+                                                      },
+                                                      "EstimatedRows": 0
+                                                    },
+                                                    "children": [
+                                                      {
+                                                        "operatorType": "Expand(All)@neo4j",
+                                                        "identifiers": [
+                                                          "s",
+                                                          "li",
+                                                          "n1",
+                                                          "anon_4",
+                                                          "anon_1",
+                                                          "anon_3",
+                                                          "anon_5",
+                                                          "c",
+                                                          "o"
+                                                        ],
+                                                        "arguments": {
+                                                          "Details": "(li)-[anon_1:SUPPLIED_BY]->(s)",
+                                                          "Id": {
+                                                            "low": 13,
+                                                            "high": 0
+                                                          },
+                                                          "EstimatedRows": 0
+                                                        },
+                                                        "children": [
+                                                          {
+                                                            "operatorType": "Filter@neo4j",
+                                                            "identifiers": [
+                                                              "li",
+                                                              "n1",
+                                                              "anon_4",
+                                                              "anon_3",
+                                                              "anon_5",
+                                                              "c",
+                                                              "o"
+                                                            ],
+                                                            "arguments": {
+                                                              "Details": "li:LINEITEM",
+                                                              "Id": {
+                                                                "low": 14,
+                                                                "high": 0
+                                                              },
+                                                              "EstimatedRows": 0
+                                                            },
+                                                            "children": [
+                                                              {
+                                                                "operatorType": "Expand(All)@neo4j",
+                                                                "identifiers": [
+                                                                  "li",
+                                                                  "n1",
+                                                                  "anon_4",
+                                                                  "anon_3",
+                                                                  "anon_5",
+                                                                  "c",
+                                                                  "o"
+                                                                ],
+                                                                "arguments": {
+                                                                  "Details": "(o)<-[anon_3:IS_PART_OF]-(li)",
+                                                                  "Id": {
+                                                                    "low": 15,
+                                                                    "high": 0
+                                                                  },
+                                                                  "EstimatedRows": 0
+                                                                },
+                                                                "children": [
+                                                                  {
+                                                                    "operatorType": "Filter@neo4j",
+                                                                    "identifiers": [
+                                                                      "n1",
+                                                                      "anon_4",
+                                                                      "anon_5",
+                                                                      "c",
+                                                                      "o"
+                                                                    ],
+                                                                    "arguments": {
+                                                                      "Details": "o:ORDER AND date(cache[o.O_ORDERDATE]) > date($autostring_1) AND date(cache[o.O_ORDERDATE]) < date($autostring_2)",
+                                                                      "Id": {
+                                                                        "low": 16,
+                                                                        "high": 0
+                                                                      },
+                                                                      "EstimatedRows": 0
+                                                                    },
+                                                                    "children": [
+                                                                      {
+                                                                        "operatorType": "Expand(All)@neo4j",
+                                                                        "identifiers": [
+                                                                          "n1",
+                                                                          "anon_4",
+                                                                          "anon_5",
+                                                                          "c",
+                                                                          "o"
+                                                                        ],
+                                                                        "arguments": {
+                                                                          "Details": "(c)<-[anon_4:MADE_BY]-(o)",
+                                                                          "Id": {
+                                                                            "low": 17,
+                                                                            "high": 0
+                                                                          },
+                                                                          "EstimatedRows": 0.002
+                                                                        },
+                                                                        "children": [
+                                                                          {
+                                                                            "operatorType": "Filter@neo4j",
+                                                                            "identifiers": [
+                                                                              "anon_5",
+                                                                              "c",
+                                                                              "n1"
+                                                                            ],
+                                                                            "arguments": {
+                                                                              "Details": "n1:NATION AND c:CUSTOMER",
+                                                                              "Id": {
+                                                                                "low": 18,
+                                                                                "high": 0
+                                                                              },
+                                                                              "EstimatedRows": 3
+                                                                            },
+                                                                            "children": [
+                                                                              {
+                                                                                "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                                                                                "identifiers": [
+                                                                                  "anon_5",
+                                                                                  "c",
+                                                                                  "n1"
+                                                                                ],
+                                                                                "arguments": {
+                                                                                  "Details": "(c)-[anon_5:BELONG_TO]->(n1)",
+                                                                                  "Id": {
+                                                                                    "low": 19,
+                                                                                    "high": 0
+                                                                                  },
+                                                                                  "EstimatedRows": 3
+                                                                                },
+                                                                                "children": []
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

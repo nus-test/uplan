@@ -1,0 +1,304 @@
+{
+  "explainVersion": "1",
+  "stages": [
+    {
+      "$cursor": {
+        "queryPlanner": {
+          "namespace": "mydb.orders",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "$and": [
+              {
+                "Customer.MKTSEGMENT": {
+                  "$eq": "AUTOMOBILE"
+                }
+              },
+              {
+                "ORDERDATE": {
+                  "$lte": {
+                    "$date": {
+                      "$numberLong": "946684800000"
+                    }
+                  }
+                }
+              },
+              {
+                "Items.SHIPDATE": {
+                  "$gte": {
+                    "$date": {
+                      "$numberLong": "631152000000"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "queryHash": "348996C9",
+          "planCacheKey": "348996C9",
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "PROJECTION_SIMPLE",
+            "transformBy": {
+              "Items": 1,
+              "ORDERDATE": 1,
+              "SHIPPRIORITY": 1,
+              "_id": 1
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "filter": {
+                "$and": [
+                  {
+                    "Customer.MKTSEGMENT": {
+                      "$eq": "AUTOMOBILE"
+                    }
+                  },
+                  {
+                    "ORDERDATE": {
+                      "$lte": {
+                        "$date": {
+                          "$numberLong": "946684800000"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Items.SHIPDATE": {
+                      "$gte": {
+                        "$date": {
+                          "$numberLong": "631152000000"
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "direction": "forward"
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 9172,
+          "executionTimeMillis": 129,
+          "totalKeysExamined": 0,
+          "totalDocsExamined": 45000,
+          "executionStages": {
+            "stage": "PROJECTION_SIMPLE",
+            "nReturned": 9172,
+            "executionTimeMillisEstimate": 7,
+            "works": 45002,
+            "advanced": 9172,
+            "needTime": 35829,
+            "needYield": 0,
+            "saveState": 57,
+            "restoreState": 57,
+            "isEOF": 1,
+            "transformBy": {
+              "Items": 1,
+              "ORDERDATE": 1,
+              "SHIPPRIORITY": 1,
+              "_id": 1
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "filter": {
+                "$and": [
+                  {
+                    "Customer.MKTSEGMENT": {
+                      "$eq": "AUTOMOBILE"
+                    }
+                  },
+                  {
+                    "ORDERDATE": {
+                      "$lte": {
+                        "$date": {
+                          "$numberLong": "946684800000"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "Items.SHIPDATE": {
+                      "$gte": {
+                        "$date": {
+                          "$numberLong": "631152000000"
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "nReturned": 9172,
+              "executionTimeMillisEstimate": 7,
+              "works": 45002,
+              "advanced": 9172,
+              "needTime": 35829,
+              "needYield": 0,
+              "saveState": 57,
+              "restoreState": 57,
+              "isEOF": 1,
+              "direction": "forward",
+              "docsExamined": 45000
+            }
+          },
+          "allPlansExecution": []
+        }
+      },
+      "nReturned": 9172,
+      "executionTimeMillisEstimate": 84
+    },
+    {
+      "$unwind": {
+        "path": "$Items"
+      },
+      "nReturned": 36653,
+      "executionTimeMillisEstimate": 89
+    },
+    {
+      "$project": {
+        "_id": true,
+        "SHIPPRIORITY": true,
+        "ORDERDATE": true,
+        "Items": {
+          "EXTENDEDPRICE": true
+        },
+        "l_dis_min_1": {
+          "$subtract": [
+            {
+              "$const": 1
+            },
+            "$Items.DISCOUNT"
+          ]
+        }
+      },
+      "nReturned": 36653,
+      "executionTimeMillisEstimate": 115
+    },
+    {
+      "$group": {
+        "_id": {
+          "ORDERKEY": "$ORDERKEY",
+          "ORDERDATE": "$ORDERDATE",
+          "SHIPPRIORITY": "$SHIPPRIORITY"
+        },
+        "revenue": {
+          "$sum": {
+            "$multiply": [
+              "$Items.EXTENDEDPRICE",
+              "$l_dis_min_1"
+            ]
+          }
+        }
+      },
+      "maxAccumulatorMemoryUsageBytes": {
+        "revenue": 189120
+      },
+      "totalOutputDataSizeBytes": 1196184,
+      "usedDisk": false,
+      "spills": 0,
+      "nReturned": 2364,
+      "executionTimeMillisEstimate": 122
+    },
+    {
+      "$sort": {
+        "sortKey": {
+          "revenue": 1,
+          "ORDERDATE": 1
+        }
+      },
+      "totalDataSizeSortedBytesEstimate": 1385304,
+      "usedDisk": false,
+      "spills": 0,
+      "nReturned": 2364,
+      "executionTimeMillisEstimate": 122
+    }
+  ],
+  "serverInfo": {
+    "host": "soccf-plser3-10",
+    "port": 27017,
+    "version": "6.0.4",
+    "gitVersion": "44ff59461c1353638a71e710f385a566bcd2f547"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+  },
+  "command": {
+    "aggregate": "orders",
+    "pipeline": [
+      {
+        "$match": {
+          "Customer.MKTSEGMENT": "AUTOMOBILE",
+          "ORDERDATE": {
+            "$lte": {
+              "$date": {
+                "$numberLong": "946684800000"
+              }
+            }
+          },
+          "Items.SHIPDATE": {
+            "$gte": {
+              "$date": {
+                "$numberLong": "631152000000"
+              }
+            }
+          }
+        }
+      },
+      {
+        "$unwind": "$Items"
+      },
+      {
+        "$project": {
+          "ORDERDATE": 1,
+          "SHIPPRIORITY": 1,
+          "Items.EXTENDEDPRICE": 1,
+          "l_dis_min_1": {
+            "$subtract": [
+              1,
+              "$Items.DISCOUNT"
+            ]
+          }
+        }
+      },
+      {
+        "$group": {
+          "_id": {
+            "ORDERKEY": "$ORDERKEY",
+            "ORDERDATE": "$ORDERDATE",
+            "SHIPPRIORITY": "$SHIPPRIORITY"
+          },
+          "revenue": {
+            "$sum": {
+              "$multiply": [
+                "$Items.EXTENDEDPRICE",
+                "$l_dis_min_1"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "$sort": {
+          "revenue": 1,
+          "ORDERDATE": 1
+        }
+      }
+    ],
+    "allowDiskUse": true,
+    "cursor": {},
+    "maxTimeMS": 60000,
+    "$db": "mydb"
+  },
+  "ok": 1
+}

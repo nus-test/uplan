@@ -1,0 +1,6 @@
+Combinator->Sort
+	Folder->Group
+		Producer->Full Table Scan
+		row: 59549
+		name object: LINEITEM
+

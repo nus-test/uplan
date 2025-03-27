@@ -1,0 +1,161 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "`order.id`",
+      "`order.O_ORDERDATE`",
+      "`order.O_SHIPPRIORITY`",
+      "REVENUE"
+    ],
+    "arguments": {
+      "Order": "REVENUE DESC, `order.O_ORDERDATE` ASC",
+      "planner-impl": "IDP",
+      "Details": "`order.id`, REVENUE, `order.O_ORDERDATE`, `order.O_SHIPPRIORITY`",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| Operator                      | Id | Details                                                                                              | Estimated Rows | Ordered by                            |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +ProduceResults               |  0 | `order.id`, REVENUE, `order.O_ORDERDATE`, `order.O_SHIPPRIORITY`                                     |              0 |                                       |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+                                       |\n| +Top                          |  1 | REVENUE DESC, `order.O_ORDERDATE` ASC LIMIT 10                                                       |              0 | REVENUE DESC, `order.O_ORDERDATE` ASC |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +EagerAggregation             |  2 | cache[order.id] AS `order.id`, cache[order.O_ORDERDATE] AS `order.O_ORDERDATE`, cache[order.O_SHIPPR |              0 |                                       |\n| |                             |    | IORITY] AS `order.O_SHIPPRIORITY`, sum(cache[lineitem.L_EXTENDEDPRICE] * ($autoint_3 - cache[lineite |                |                                       |\n| |                             |    | m.L_DISCOUNT])) AS REVENUE                                                                           |                |                                       |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +CacheProperties              |  3 | cache[order.O_SHIPPRIORITY], cache[order.id], cache[lineitem.L_DISCOUNT],                            |              0 |                                       |\n| |                             |    | cache[lineitem.L_EXTENDEDPRICE]                                                                      |                |                                       |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +Filter                       |  4 | lineitem:LINEITEM AND date(lineitem.L_SHIPDATE) > date($autostring_2)                                |              0 |                                       |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +Expand(All)                  |  5 | (order)<-[anon_0:IS_PART_OF]-(lineitem)                                                              |              0 |                                       |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +Filter                       |  6 | order:ORDER AND customer.C_MKTSEGMENT = $autostring_0 AND date(cache[order.O_ORDERDATE]) < date($aut |              0 |                                       |\n| |                             |    | ostring_1) AND customer:CUSTOMER                                                                     |                |                                       |\n| |                             +----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n| +DirectedRelationshipTypeScan |  7 | (order)-[anon_1:MADE_BY]->(customer)                                                                 |              3 |                                       |\n+-------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+---------------------------------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 0,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Top@neo4j",
+        "identifiers": [
+          "`order.id`",
+          "`order.O_ORDERDATE`",
+          "`order.O_SHIPPRIORITY`",
+          "REVENUE"
+        ],
+        "arguments": {
+          "Order": "REVENUE DESC, `order.O_ORDERDATE` ASC",
+          "Details": "REVENUE DESC, `order.O_ORDERDATE` ASC LIMIT 10",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 0
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "`order.id`",
+              "`order.O_ORDERDATE`",
+              "`order.O_SHIPPRIORITY`",
+              "REVENUE"
+            ],
+            "arguments": {
+              "Details": "cache[order.id] AS `order.id`, cache[order.O_ORDERDATE] AS `order.O_ORDERDATE`, cache[order.O_SHIPPRIORITY] AS `order.O_SHIPPRIORITY`, sum(cache[lineitem.L_EXTENDEDPRICE] * ($autoint_3 - cache[lineitem.L_DISCOUNT])) AS REVENUE",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 0
+            },
+            "children": [
+              {
+                "operatorType": "CacheProperties@neo4j",
+                "identifiers": [
+                  "lineitem",
+                  "order",
+                  "customer",
+                  "anon_0",
+                  "anon_1"
+                ],
+                "arguments": {
+                  "Details": "cache[order.O_SHIPPRIORITY], cache[order.id], cache[lineitem.L_DISCOUNT], cache[lineitem.L_EXTENDEDPRICE]",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0
+                },
+                "children": [
+                  {
+                    "operatorType": "Filter@neo4j",
+                    "identifiers": [
+                      "lineitem",
+                      "order",
+                      "customer",
+                      "anon_0",
+                      "anon_1"
+                    ],
+                    "arguments": {
+                      "Details": "lineitem:LINEITEM AND date(lineitem.L_SHIPDATE) > date($autostring_2)",
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      },
+                      "EstimatedRows": 0
+                    },
+                    "children": [
+                      {
+                        "operatorType": "Expand(All)@neo4j",
+                        "identifiers": [
+                          "lineitem",
+                          "order",
+                          "customer",
+                          "anon_0",
+                          "anon_1"
+                        ],
+                        "arguments": {
+                          "Details": "(order)<-[anon_0:IS_PART_OF]-(lineitem)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 0
+                        },
+                        "children": [
+                          {
+                            "operatorType": "Filter@neo4j",
+                            "identifiers": [
+                              "anon_1",
+                              "order",
+                              "customer"
+                            ],
+                            "arguments": {
+                              "Details": "order:ORDER AND customer.C_MKTSEGMENT = $autostring_0 AND date(cache[order.O_ORDERDATE]) < date($autostring_1) AND customer:CUSTOMER",
+                              "Id": {
+                                "low": 6,
+                                "high": 0
+                              },
+                              "EstimatedRows": 0
+                            },
+                            "children": [
+                              {
+                                "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                                "identifiers": [
+                                  "anon_1",
+                                  "order",
+                                  "customer"
+                                ],
+                                "arguments": {
+                                  "Details": "(order)-[anon_1:MADE_BY]->(customer)",
+                                  "Id": {
+                                    "low": 7,
+                                    "high": 0
+                                  },
+                                  "EstimatedRows": 3
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

@@ -1,0 +1,13 @@
+Executor->Argument
+row: 0
+	Combinator->Sort
+	row: 0
+		Executor->Eager
+		row: 0
+			Join->Relation
+			row: 0
+				Producer->Range Scan
+				row: 10
+
+cost model: IDP
+version: 5.6

@@ -1,0 +1,330 @@
+{
+  "explainVersion": "1",
+  "stages": [
+    {
+      "$cursor": {
+        "queryPlanner": {
+          "namespace": "mydb.orders",
+          "indexFilterSet": false,
+          "parsedQuery": {
+            "Items": {
+              "$elemMatch": {
+                "SHIPDATE": {
+                  "$lte": {
+                    "$date": {
+                      "$numberLong": "946684800000"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "queryHash": "58457254",
+          "planCacheKey": "58457254",
+          "maxIndexedOrSolutionsReached": false,
+          "maxIndexedAndSolutionsReached": false,
+          "maxScansToExplodeReached": false,
+          "winningPlan": {
+            "stage": "PROJECTION_SIMPLE",
+            "transformBy": {
+              "Items": 1,
+              "_id": 1
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "filter": {
+                "Items": {
+                  "$elemMatch": {
+                    "SHIPDATE": {
+                      "$lte": {
+                        "$date": {
+                          "$numberLong": "946684800000"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "direction": "forward"
+            }
+          },
+          "rejectedPlans": []
+        },
+        "executionStats": {
+          "executionSuccess": true,
+          "nReturned": 45000,
+          "executionTimeMillis": 590,
+          "totalKeysExamined": 0,
+          "totalDocsExamined": 45000,
+          "executionStages": {
+            "stage": "PROJECTION_SIMPLE",
+            "nReturned": 45000,
+            "executionTimeMillisEstimate": 14,
+            "works": 45002,
+            "advanced": 45000,
+            "needTime": 1,
+            "needYield": 0,
+            "saveState": 104,
+            "restoreState": 104,
+            "isEOF": 1,
+            "transformBy": {
+              "Items": 1,
+              "_id": 1
+            },
+            "inputStage": {
+              "stage": "COLLSCAN",
+              "filter": {
+                "Items": {
+                  "$elemMatch": {
+                    "SHIPDATE": {
+                      "$lte": {
+                        "$date": {
+                          "$numberLong": "946684800000"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "nReturned": 45000,
+              "executionTimeMillisEstimate": 9,
+              "works": 45002,
+              "advanced": 45000,
+              "needTime": 1,
+              "needYield": 0,
+              "saveState": 104,
+              "restoreState": 104,
+              "isEOF": 1,
+              "direction": "forward",
+              "docsExamined": 45000
+            }
+          },
+          "allPlansExecution": []
+        }
+      },
+      "nReturned": 45000,
+      "executionTimeMillisEstimate": 298
+    },
+    {
+      "$unwind": {
+        "path": "$Items"
+      },
+      "nReturned": 180566,
+      "executionTimeMillisEstimate": 343
+    },
+    {
+      "$project": {
+        "_id": true,
+        "Items": {
+          "RETURNFLAG": true,
+          "EXTENDEDPRICE": true,
+          "LINESTATUS": true,
+          "QUANTITY": true,
+          "DISCOUNT": true
+        },
+        "l_dis_min_1": {
+          "$subtract": [
+            {
+              "$const": 1
+            },
+            "$Items.DISCOUNT"
+          ]
+        },
+        "l_tax_plus_1": {
+          "$add": [
+            "$Items.TAX",
+            {
+              "$const": 1
+            }
+          ]
+        }
+      },
+      "nReturned": 180566,
+      "executionTimeMillisEstimate": 482
+    },
+    {
+      "$group": {
+        "_id": {
+          "RETURNFLAG": "$Items.RETURNFLAG",
+          "LINESTATUS": "$Items.LINESTATUS"
+        },
+        "sum_qty": {
+          "$sum": "$Items.QUANTITY"
+        },
+        "sum_base_price": {
+          "$sum": "$Items.EXTENDEDPRICE"
+        },
+        "sum_disc_price": {
+          "$sum": {
+            "$multiply": [
+              "$Items.EXTENDEDPRICE",
+              "$l_dis_min_1"
+            ]
+          }
+        },
+        "sum_charge": {
+          "$sum": {
+            "$multiply": [
+              "$Items.EXTENDEDPRICE",
+              "$l_tax_plus_1",
+              "$l_dis_min_1"
+            ]
+          }
+        },
+        "avg_price": {
+          "$avg": "$Items.EXTENDEDPRICE"
+        },
+        "avg_disc": {
+          "$avg": "$Items.DISCOUNT"
+        },
+        "count_order": {
+          "$sum": {
+            "$const": 1
+          }
+        }
+      },
+      "maxAccumulatorMemoryUsageBytes": {
+        "sum_qty": 320,
+        "sum_base_price": 320,
+        "sum_disc_price": 320,
+        "sum_charge": 320,
+        "avg_price": 352,
+        "avg_disc": 352,
+        "count_order": 320
+      },
+      "totalOutputDataSizeBytes": 3432,
+      "usedDisk": false,
+      "spills": 0,
+      "nReturned": 4,
+      "executionTimeMillisEstimate": 589
+    },
+    {
+      "$sort": {
+        "sortKey": {
+          "Items.RETURNFLAG": 1,
+          "Items.LINESTATUS": 1
+        }
+      },
+      "totalDataSizeSortedBytesEstimate": 3752,
+      "usedDisk": false,
+      "spills": 0,
+      "nReturned": 4,
+      "executionTimeMillisEstimate": 590
+    }
+  ],
+  "serverInfo": {
+    "host": "soccf-plser3-10",
+    "port": 27017,
+    "version": "6.0.4",
+    "gitVersion": "44ff59461c1353638a71e710f385a566bcd2f547"
+  },
+  "serverParameters": {
+    "internalQueryFacetBufferSizeBytes": 104857600,
+    "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+    "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+    "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+    "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+    "internalQueryProhibitBlockingMergeOnMongoS": 0,
+    "internalQueryMaxAddToSetBytes": 104857600,
+    "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+  },
+  "command": {
+    "aggregate": "orders",
+    "pipeline": [
+      {
+        "$match": {
+          "Items": {
+            "$elemMatch": {
+              "SHIPDATE": {
+                "$lte": {
+                  "$date": {
+                    "$numberLong": "946684800000"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "$unwind": "$Items"
+      },
+      {
+        "$project": {
+          "Items.RETURNFLAG": 1,
+          "Items.LINESTATUS": 1,
+          "Items.QUANTITY": 1,
+          "Items.EXTENDEDPRICE": 1,
+          "Items.DISCOUNT": 1,
+          "l_dis_min_1": {
+            "$subtract": [
+              1,
+              "$Items.DISCOUNT"
+            ]
+          },
+          "l_tax_plus_1": {
+            "$add": [
+              "$Items.TAX",
+              1
+            ]
+          }
+        }
+      },
+      {
+        "$group": {
+          "_id": {
+            "RETURNFLAG": "$Items.RETURNFLAG",
+            "LINESTATUS": "$Items.LINESTATUS"
+          },
+          "sum_qty": {
+            "$sum": "$Items.QUANTITY"
+          },
+          "sum_base_price": {
+            "$sum": "$Items.EXTENDEDPRICE"
+          },
+          "sum_disc_price": {
+            "$sum": {
+              "$multiply": [
+                "$Items.EXTENDEDPRICE",
+                "$l_dis_min_1"
+              ]
+            }
+          },
+          "sum_charge": {
+            "$sum": {
+              "$multiply": [
+                "$Items.EXTENDEDPRICE",
+                {
+                  "$multiply": [
+                    "$l_tax_plus_1",
+                    "$l_dis_min_1"
+                  ]
+                }
+              ]
+            }
+          },
+          "avg_price": {
+            "$avg": "$Items.EXTENDEDPRICE"
+          },
+          "avg_disc": {
+            "$avg": "$Items.DISCOUNT"
+          },
+          "count_order": {
+            "$sum": 1
+          }
+        }
+      },
+      {
+        "$sort": {
+          "Items.RETURNFLAG": 1,
+          "Items.LINESTATUS": 1
+        }
+      }
+    ],
+    "allowDiskUse": true,
+    "cursor": {},
+    "maxTimeMS": 60000,
+    "$db": "mydb"
+  },
+  "ok": 1
+}

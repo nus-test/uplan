@@ -1,0 +1,14 @@
+Combinator->Sort
+row: 2658.67
+	Projector->Project
+	row: 2658.67
+		Folder->Aggregate Hash
+		row: 2658.67
+			Executor->Collect
+			row: 2658.67
+				Folder->Aggregate Hash
+				row: 2658.67
+					Producer->Full Table Scan
+					row: 10000.00
+					name object: table:lineitem
+

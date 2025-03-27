@@ -1,0 +1,202 @@
+{
+    "Plan": {
+        "Operation": "Executor->Argument",
+        "children": [
+            {
+                "Operation": "Join->Nested Loop",
+                "children": [
+                    {
+                        "Operation": "Join->Nested Loop",
+                        "children": [
+                            {
+                                "Operation": "Join->Nested Loop",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Nested Loop",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Nested Loop",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Nested Loop",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Nested Loop",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation",
+                                                                        "Filter->filter": "anon_1.id = $autostring_0 AND anon_1:Entity"
+                                                                    },
+                                                                    {
+                                                                        "Operation": "Producer->Constant",
+                                                                        "children": [
+                                                                            {
+                                                                                "Operation": "Join->Relation",
+                                                                                "children": [
+                                                                                    {
+                                                                                        "Operation": "Join->Relation",
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "Operation": "Executor->Argument"
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "Operation": "Producer->Constant",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation",
+                                                                        "children": [
+                                                                            {
+                                                                                "Operation": "Join->Relation",
+                                                                                "children": [
+                                                                                    {
+                                                                                        "Operation": "Join->Relation",
+                                                                                        "children": [
+                                                                                            {
+                                                                                                "Operation": "Executor->Argument"
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "Operation": "Producer->Constant",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "Filter->filter": "not anon_15 = anon_16 AND not anon_15 = anon_17",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Join->Relation",
+                                                                        "Filter->filter": "not anon_16 = anon_17",
+                                                                        "children": [
+                                                                            {
+                                                                                "Operation": "Join->Relation",
+                                                                                "children": [
+                                                                                    {
+                                                                                        "Operation": "Executor->Argument"
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "Operation": "Producer->Constant",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "Filter->filter": "not anon_10 = anon_11",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Executor->Argument"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "Operation": "Producer->Constant",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->CartesianProduct",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "Filter->filter": "not anon_6 = anon_8",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation",
+                                                                "children": [
+                                                                    {
+                                                                        "Operation": "Executor->Argument"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "Operation": "Join->Relation",
+                                                        "Filter->filter": "not anon_7 = anon_9",
+                                                        "children": [
+                                                            {
+                                                                "Operation": "Join->Relation"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "Operation": "Producer->Constant",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "Filter->filter": "not anon_4 = anon_5",
+                                        "children": [
+                                            {
+                                                "Operation": "Join->Relation",
+                                                "children": [
+                                                    {
+                                                        "Operation": "Executor->Argument"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "Operation": "Producer->Constant",
+                        "children": [
+                            {
+                                "Operation": "Join->Relation",
+                                "Filter->filter": "not anon_2 = anon_3",
+                                "children": [
+                                    {
+                                        "Operation": "Join->Relation",
+                                        "children": [
+                                            {
+                                                "Operation": "Executor->Argument"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

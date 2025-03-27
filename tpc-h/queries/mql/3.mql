@@ -1,0 +1,52 @@
+[  
+   {  
+      "$match":{  
+         "Customer.MKTSEGMENT":"AUTOMOBILE",
+         "ORDERDATE":{  
+            "$lte":  ISODate("2000-01-01T00:00:00.000Z")
+         },
+         "Items.SHIPDATE":{  
+            "$gte": ISODate("1990-01-01T00:00:00.000Z")
+         }
+      }
+   },
+   {  
+      "$unwind":"$Items"
+   },
+   {  
+      "$project":{  
+         "ORDERDATE":1,
+         "SHIPPRIORITY":1,
+         "Items.EXTENDEDPRICE":1,
+         "l_dis_min_1":{  
+            "$subtract":[  
+               1,
+               "$Items.DISCOUNT"
+            ]
+         }
+      }
+   },
+   {  
+      "$group":{  
+         "_id":{  
+            "ORDERKEY":"$ORDERKEY",
+            "ORDERDATE":"$ORDERDATE",
+            "SHIPPRIORITY":"$SHIPPRIORITY"
+         },
+         "revenue":{  
+            "$sum":{  
+               "$multiply":[  
+                  "$Items.EXTENDEDPRICE",
+                  "$l_dis_min_1"
+               ]
+            }
+         }
+      }
+   },
+   {  
+      "$sort":{  
+         "revenue":1,
+         "ORDERDATE":1
+      }
+   }
+]

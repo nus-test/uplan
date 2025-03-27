@@ -1,0 +1,15 @@
+{
+    "Plan": {
+        "Operation": "Producer->Index-only Scan",
+        "Cardinality->row": 1,
+        "Cost->time": 0,
+        "Status->worker": 2,
+        "Status->call": 1,
+        "Configuration->information": 0,
+        "Status->suspended": 0,
+        "Status->recovered": 0,
+        "Status->end": 1,
+        "Status->index used": 1,
+        "Cardinality->row read": 1
+    }
+}

@@ -1,0 +1,90 @@
+{
+  "operatorType": "ProduceResults@neo4j",
+  "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+-----------------------+----+---------------------------------------+----------------+\n| Operator              | Id | Details                               | Estimated Rows |\n+-----------------------+----+---------------------------------------+----------------+\n| +ProduceResults       |  0 | x1                                    |            250 |\n| |                     +----+---------------------------------------+----------------+\n| +VarLengthExpand(All) |  1 | (anon_1)<-[anon_0:P1142*0..]-(x1)     |            250 |\n| |                     +----+---------------------------------------+----------------+\n| +VarLengthExpand(All) |  2 | (anon_3)<-[anon_2:P1387*0..]-(anon_1) |            250 |\n| |                     +----+---------------------------------------+----------------+\n| +VarLengthExpand(All) |  3 | (anon_5)<-[anon_4:P361*0..]-(anon_3)  |            250 |\n| |                     +----+---------------------------------------+----------------+\n| +Filter               |  4 | anon_5.id = $autostring_0             |            250 |\n| |                     +----+---------------------------------------+----------------+\n| +NodeByLabelScan      |  5 | anon_5:Entity                         |           4999 |\n+-----------------------+----+---------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+  "Id": 0,
+  "runtime-impl": "SLOTTED",
+  "planner-impl": "IDP",
+  "runtime-version": "5.6",
+  "Details": "x1",
+  "planner-version": "5.6",
+  "EstimatedRows": 250.25009661128337,
+  "planner": "COST",
+  "runtime": "SLOTTED",
+  "identifiers": [
+    "anon_2",
+    "anon_4",
+    "anon_3",
+    "anon_5",
+    "x1",
+    "anon_0",
+    "anon_1"
+  ],
+  "children": [
+    {
+      "operatorType": "VarLengthExpand(All)@neo4j",
+      "Details": "(anon_1)<-[anon_0:P1142*0..]-(x1)",
+      "EstimatedRows": 250.25009661128337,
+      "Id": 1,
+      "identifiers": [
+        "anon_2",
+        "anon_4",
+        "anon_3",
+        "anon_5",
+        "x1",
+        "anon_0",
+        "anon_1"
+      ],
+      "children": [
+        {
+          "operatorType": "VarLengthExpand(All)@neo4j",
+          "Details": "(anon_3)<-[anon_2:P1387*0..]-(anon_1)",
+          "EstimatedRows": 250.1750593261206,
+          "Id": 2,
+          "identifiers": [
+            "anon_2",
+            "anon_4",
+            "anon_1",
+            "anon_3",
+            "anon_5"
+          ],
+          "children": [
+            {
+              "operatorType": "VarLengthExpand(All)@neo4j",
+              "Details": "(anon_5)<-[anon_4:P361*0..]-(anon_3)",
+              "EstimatedRows": 250.1000445408259,
+              "Id": 3,
+              "identifiers": [
+                "anon_5",
+                "anon_4",
+                "anon_3"
+              ],
+              "children": [
+                {
+                  "operatorType": "Filter@neo4j",
+                  "Details": "anon_5.id = $autostring_0",
+                  "EstimatedRows": 249.95,
+                  "Id": 4,
+                  "identifiers": [
+                    "anon_5"
+                  ],
+                  "children": [
+                    {
+                      "operatorType": "NodeByLabelScan@neo4j",
+                      "Details": "anon_5:Entity",
+                      "EstimatedRows": 4999.0,
+                      "Id": 5,
+                      "identifiers": [
+                        "anon_5"
+                      ],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

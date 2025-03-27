@@ -1,0 +1,177 @@
+{
+    "operatorType": "ProduceResults@neo4j",
+    "identifiers": [
+      "avg_yearly"
+    ],
+    "arguments": {
+      "planner-impl": "IDP",
+      "Details": "avg_yearly",
+      "planner-version": "5.6",
+      "string-representation": "Planner COST\n\nRuntime SLOTTED\n\nRuntime version 5.6\n\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n| Operator                        | Id | Details                                                                                              | Estimated Rows |\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n| +ProduceResults                 |  0 | avg_yearly                                                                                           |              1 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Projection                     |  1 | anon_5 / $autodouble_3 AS avg_yearly                                                                 |              1 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +EagerAggregation               |  2 | SUM(item.L_EXTENDEDPRICE) AS anon_5                                                                  |              1 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                         |  3 | part:PART AND item:LINEITEM AND part.P_CONTAINER = $autostring_2 AND part.P_BRAND = $autostring_1 AN |              0 |\n| |                               |    | D item.L_QUANTITY < L_QUANTITY                                                                       |                |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Apply                          |  4 |                                                                                                      |              3 |\n| |\\                              +----+------------------------------------------------------------------------------------------------------+----------------+\n| | +DirectedRelationshipTypeScan |  5 | (item)-[anon_1:COMPOSED_BY]->(part)                                                                  |              3 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Projection                     |  6 | anon_4 * $autodouble_0 AS L_QUANTITY                                                                 |              1 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +EagerAggregation               |  7 | AVG(lineitem.L_QUANTITY) AS anon_4                                                                   |              1 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +Filter                         |  8 | lineitem:LINEITEM AND part:PART                                                                      |              3 |\n| |                               +----+------------------------------------------------------------------------------------------------------+----------------+\n| +DirectedRelationshipTypeScan   |  9 | (lineitem)-[anon_0:COMPOSED_BY]->(part)                                                              |              3 |\n+---------------------------------+----+------------------------------------------------------------------------------------------------------+----------------+\n\nTotal database accesses: ?\n",
+      "runtime-version": "5.6",
+      "runtime": "SLOTTED",
+      "Id": {
+        "low": 0,
+        "high": 0
+      },
+      "runtime-impl": "SLOTTED",
+      "EstimatedRows": 1,
+      "planner": "COST"
+    },
+    "children": [
+      {
+        "operatorType": "Projection@neo4j",
+        "identifiers": [
+          "avg_yearly"
+        ],
+        "arguments": {
+          "Details": "anon_5 / $autodouble_3 AS avg_yearly",
+          "Id": {
+            "low": 1,
+            "high": 0
+          },
+          "EstimatedRows": 1
+        },
+        "children": [
+          {
+            "operatorType": "EagerAggregation@neo4j",
+            "identifiers": [
+              "anon_5"
+            ],
+            "arguments": {
+              "Details": "SUM(item.L_EXTENDEDPRICE) AS anon_5",
+              "Id": {
+                "low": 2,
+                "high": 0
+              },
+              "EstimatedRows": 1
+            },
+            "children": [
+              {
+                "operatorType": "Filter@neo4j",
+                "identifiers": [
+                  "L_QUANTITY",
+                  "anon_1",
+                  "item",
+                  "part"
+                ],
+                "arguments": {
+                  "Details": "part:PART AND item:LINEITEM AND part.P_CONTAINER = $autostring_2 AND part.P_BRAND = $autostring_1 AND item.L_QUANTITY < L_QUANTITY",
+                  "Id": {
+                    "low": 3,
+                    "high": 0
+                  },
+                  "EstimatedRows": 0.0022500000000000003
+                },
+                "children": [
+                  {
+                    "operatorType": "Apply@neo4j",
+                    "identifiers": [
+                      "L_QUANTITY",
+                      "anon_1",
+                      "item",
+                      "part"
+                    ],
+                    "arguments": {
+                      "EstimatedRows": 3,
+                      "Id": {
+                        "low": 4,
+                        "high": 0
+                      }
+                    },
+                    "children": [
+                      {
+                        "operatorType": "Projection@neo4j",
+                        "identifiers": [
+                          "L_QUANTITY"
+                        ],
+                        "arguments": {
+                          "Details": "anon_4 * $autodouble_0 AS L_QUANTITY",
+                          "Id": {
+                            "low": 6,
+                            "high": 0
+                          },
+                          "EstimatedRows": 1
+                        },
+                        "children": [
+                          {
+                            "operatorType": "EagerAggregation@neo4j",
+                            "identifiers": [
+                              "anon_4"
+                            ],
+                            "arguments": {
+                              "Details": "AVG(lineitem.L_QUANTITY) AS anon_4",
+                              "Id": {
+                                "low": 7,
+                                "high": 0
+                              },
+                              "EstimatedRows": 1
+                            },
+                            "children": [
+                              {
+                                "operatorType": "Filter@neo4j",
+                                "identifiers": [
+                                  "anon_0",
+                                  "lineitem",
+                                  "part"
+                                ],
+                                "arguments": {
+                                  "Details": "lineitem:LINEITEM AND part:PART",
+                                  "Id": {
+                                    "low": 8,
+                                    "high": 0
+                                  },
+                                  "EstimatedRows": 3.0000000000000004
+                                },
+                                "children": [
+                                  {
+                                    "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                                    "identifiers": [
+                                      "anon_0",
+                                      "lineitem",
+                                      "part"
+                                    ],
+                                    "arguments": {
+                                      "Details": "(lineitem)-[anon_0:COMPOSED_BY]->(part)",
+                                      "Id": {
+                                        "low": 9,
+                                        "high": 0
+                                      },
+                                      "EstimatedRows": 3
+                                    },
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "operatorType": "DirectedRelationshipTypeScan@neo4j",
+                        "identifiers": [
+                          "L_QUANTITY",
+                          "anon_1",
+                          "item",
+                          "part"
+                        ],
+                        "arguments": {
+                          "Details": "(item)-[anon_1:COMPOSED_BY]->(part)",
+                          "Id": {
+                            "low": 5,
+                            "high": 0
+                          },
+                          "EstimatedRows": 3
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

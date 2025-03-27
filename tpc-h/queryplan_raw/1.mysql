@@ -1,0 +1,44 @@
+EXPLAIN
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "77840.97"
+    },
+    "ordering_operation": {
+      "using_filesort": false,
+      "grouping_operation": {
+        "using_temporary_table": true,
+        "using_filesort": true,
+        "cost_info": {
+          "sort_cost": "59549.37"
+        },
+        "table": {
+          "table_name": "LINEITEM",
+          "access_type": "ALL",
+          "rows_examined_per_scan": 178666,
+          "rows_produced_per_join": 59549,
+          "filtered": "33.33",
+          "cost_info": {
+            "read_cost": "12336.66",
+            "eval_cost": "5954.94",
+            "prefix_cost": "18291.60",
+            "data_read_per_join": "21M"
+          },
+          "used_columns": [
+            "L_ORDERKEY",
+            "L_LINENUMBER",
+            "L_QUANTITY",
+            "L_EXTENDEDPRICE",
+            "L_DISCOUNT",
+            "L_TAX",
+            "L_RETURNFLAG",
+            "L_LINESTATUS",
+            "L_SHIPDATE"
+          ],
+          "attached_condition": "(`tpch`.`LINEITEM`.`L_SHIPDATE` <= <cache>((DATE'1998-12-01' - interval '108' day)))"
+        }
+      }
+    }
+  }
+}
